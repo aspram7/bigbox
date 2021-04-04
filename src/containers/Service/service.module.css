@@ -1,0 +1,60 @@
+.section {
+  margin: 130px 0 105px;
+  display: flex;
+  justify-content: space-between;
+}
+.serviceItem {
+  display: flex;
+  align-items: center;
+}
+.serviceItem > div:last-of-type {
+  margin-left: 9px;
+}
+.serviceItem > div > h6 {
+  font-weight: 700;
+  font-size: 14px;
+  color: #262626;
+  margin-bottom: 10px;
+}
+.serviceItem > div > p {
+  font-size: 12px;
+  color: #858585;
+}
+.serviceImg {
+  padding: 25px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.3s linear;
+  border: 1px dashed #33c0cb;
+}
+.serviceImg:hover {
+  background-color: #33c0cb;
+}
+.serviceImg:hover .serviceImgFastShipping,
+.serviceImg:hover .serviceImgCallUs,
+.serviceImg:hover .serviceImgHighService,
+.serviceImg:hover .serviceImgGifts {
+  color: #ffffff;
+}
+.serviceImgFastShipping,
+.serviceImgCallUs,
+.serviceImgHighService,
+.serviceImgGifts {
+  font-family: "icomoon";
+  color: #33c0cb;
+  font-size: 22px;
+}
+.serviceImgFastShipping::before {
+  content: "\e90e";
+}
+.serviceImgCallUs::before {
+  content: "\e90d";
+}
+.serviceImgHighService::before {
+  content: "\e910";
+}
+.serviceImgGifts::before {
+  content: "\e90f";
+}

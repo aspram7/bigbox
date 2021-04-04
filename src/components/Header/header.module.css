@@ -1,0 +1,134 @@
+.df-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.top {
+  width: 100%;
+  height: 6px;
+  background-color: #ff4d41;
+}
+.content {
+  margin: 48px 0 42px;
+  composes: df-item;
+}
+.leftBox {
+  composes: df-item;
+  width: 30%;
+  font-size: 12px;
+}
+.infoPhone {
+  margin-bottom: 10px;
+  display: flex;
+}
+.infoPhoneText p:first-of-type {
+  margin-bottom: 7px;
+}
+.infoMail {
+  display: flex;
+  align-items: center;
+}
+.infoPhoneImg,
+.infoMailImg,
+.shippingImg,
+.smile,
+.bag {
+  font-size: 14px;
+  font-family: "icomoon";
+  display: block;
+}
+.infoPhoneImg,
+.infoMailImg {
+  margin-right: 20px;
+}
+.smile,
+.bag {
+  font-size: 25px;
+  margin-bottom: 9px;
+}
+.shippingImg {
+  font-size: 40px;
+  margin-bottom: 6px;
+}
+.infoPhoneImg::before {
+  content: "\e909";
+}
+.infoMailImg::before {
+  content: "\e908";
+}
+.shippingImg::before {
+  content: "\e90b";
+}
+.smile::before {
+  content: "\e90c";
+}
+.bag::before {
+  content: "\e907";
+}
+.shipping {
+  text-align: center;
+}
+.rightBox {
+  font-size: 12px;
+  composes: df-item;
+  width: 30%;
+}
+.rightBox > div {
+  text-align: center;
+}
+.bag {
+  position: relative;
+}
+.bag > div {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background-color: #ff4d41;
+  color: #ffffff;
+  border-radius: 50%;
+  top: -14px;
+  right: 34px;
+  text-align: center;
+  line-height: 24px;
+  font-size: 12px;
+}
+
+/*mobile*/
+.contentMobile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 15px 0;
+}
+.search {
+  font-size: 25px;
+  font-family: "icomoon";
+}
+.search::before {
+  content: "\e90a";
+}
+.headerTopRight {
+  display: flex;
+}
+.bagMobile {
+  margin: 0 0 0 13px;
+  position: relative;
+  font-family: "icomoon";
+  font-size: 25px;
+}
+.bagMobile::before {
+  content: "\e907";
+}
+.bagMobile > div {
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  background-color: #ff4d41;
+  color: #ffffff;
+  border-radius: 50%;
+  top: -14px;
+  right: -10px;
+  text-align: center;
+  line-height: 24px;
+  font-size: 12px;
+}

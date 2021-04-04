@@ -1,0 +1,82 @@
+.product-carousel {
+  position: relative;
+}
+.arrow-button {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-40%);
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.button-back,
+.button-next {
+  font-family: "icomoon";
+  border: none;
+  opacity: 0;
+  transition: 0.3s linear;
+  background-color: #ff4d41;
+  padding: 10px;
+  color: #fff;
+  outline: none;
+}
+.product-carousel:hover .button-back,
+.product-carousel:hover .button-next {
+  opacity: 1;
+}
+.button-back::before {
+  content: "\ea40";
+}
+.button-next::before {
+  content: "\ea3c";
+}
+.product-carousel-item > div {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.product-carousel ul {
+  display: flex;
+  gap: 10px;
+}
+.product-carousel-img {
+  overflow: hidden;
+}
+.product-carousel-img:hover img {
+  transform: scale(1.1);
+}
+.product-carousel-img > img {
+  flex: 1;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.3s linear;
+  width: 100%;
+}
+.product-carousel-item > div > .product-carousel-content {
+  margin: 10px 0;
+}
+.product-carousel-item .sign {
+  position: absolute;
+  top: 7px;
+  left: 14px;
+}
+.product-carousel-item .tab {
+  position: absolute;
+  top: 0;
+  right: 14px;
+}
+.product-title {
+  font-size: 13px;
+}
+.product-price {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 9px 0;
+}
+.product-rating {
+  display: flex;
+  justify-content: center;
+}
+.product-rating > img {
+  margin: 0 2px;
+}

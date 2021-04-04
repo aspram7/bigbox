@@ -1,0 +1,10 @@
+.container {
+  width: 90%;
+  margin: auto;
+  padding: 0 15px;
+}
+.containerMobile {
+  width: 95%;
+  margin: auto;
+  padding: 0 5px;
+}

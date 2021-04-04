@@ -1,0 +1,67 @@
+.section > h4 {
+  margin: 70px 0;
+  text-align: center;
+  font-size: 19px;
+  color: #444444;
+}
+.product {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.product > div {
+  width: 24%;
+}
+.productItem {
+  position: relative;
+}
+.productItem > div {
+  display: flex;
+  flex-direction: column;
+  padding: 0 5px;
+  text-align: center;
+}
+.productImg {
+  overflow: hidden;
+}
+.productImg {
+  overflow: hidden;
+}
+.productImg:hover img {
+  transform: scale(1.1);
+}
+.productImg > img {
+  flex: 1;
+  height: 100%;
+  object-fit: cover;
+  transition: 0.3s linear;
+  width: 100%;
+}
+.productContent {
+  margin: 10px 0 26px;
+}
+.sign {
+  position: absolute;
+  top: 7px;
+  left: 14px;
+}
+.tab {
+  position: absolute;
+  top: 0;
+  right: 14px;
+}
+.productTitle {
+  font-size: 13px;
+}
+.productPrice {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 9px 0;
+}
+.productRating {
+  display: flex;
+  justify-content: center;
+}
+.productRating > img {
+  margin: 0 2px;
+}

@@ -1,0 +1,43 @@
+.nav {
+  border-top: 0.2px solid #c5c5c5;
+  display: flex;
+  justify-content: space-between;
+  padding: 23px 0;
+}
+.navList {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 70%;
+  margin: auto;
+}
+.navList > li {
+  list-style: none;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.3s linear;
+  position: relative;
+}
+.navList > li:hover {
+  color: #ff4d41;
+}
+.cloud {
+  position: absolute;
+  top: -37px;
+  right: 13px;
+}
+.cloud > p {
+  position: absolute;
+  top: 10px;
+  right: 4px;
+  font-size: 9px;
+  font-weight: 700;
+  color: #ffffff;
+}
+.search {
+  font-size: 20px;
+  font-family: "icomoon";
+}
+.search::before {
+  content: "\e90a";
+}
