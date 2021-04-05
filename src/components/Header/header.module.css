@@ -9,13 +9,20 @@
   background-color: #ff4d41;
 }
 .content {
-  margin: 48px 0 42px;
+  margin: 42px 0;
+  padding: 0 17px;
   composes: df-item;
 }
 .leftBox {
   composes: df-item;
-  width: 30%;
+  width: 54%;
   font-size: 12px;
+  letter-spacing: -0.06em;
+}
+.address {
+  display: flex;
+  justify-content: space-between;
+  width: 50%;
 }
 .infoPhone {
   margin-bottom: 10px;
@@ -71,7 +78,7 @@
 .rightBox {
   font-size: 12px;
   composes: df-item;
-  width: 30%;
+  width: 19%;
 }
 .rightBox > div {
   text-align: center;
@@ -86,8 +93,8 @@
   background-color: #ff4d41;
   color: #ffffff;
   border-radius: 50%;
-  top: -14px;
-  right: 34px;
+  top: -13px;
+  right: 2px;
   text-align: center;
   line-height: 24px;
   font-size: 12px;

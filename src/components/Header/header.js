@@ -39,25 +39,27 @@ const Header = () => {
         <div className={classes.content}>
           <div className={classes.leftBox}>
             <div className={classes.address}>
-              <div className={classes.infoPhone}>
-                <span className={classes.infoPhoneImg}></span>
-                <div className={classes.infoPhoneText}>
-                  <p>+044 17216621</p>
-                  <p>+044 17216622</p>
+              <div>
+                <div className={classes.infoPhone}>
+                  <span className={classes.infoPhoneImg}></span>
+                  <div className={classes.infoPhoneText}>
+                    <p>+044 17216621</p>
+                    <p>+044 17216622</p>
+                  </div>
+                </div>
+                <div className={classes.infoMail}>
+                  <span className={classes.infoMailImg}></span>
+                  <div>contact@bigbox.com</div>
                 </div>
               </div>
-              <div className={classes.infoMail}>
-                <span className={classes.infoMailImg}></span>
-                <div>contact@bigbox.com</div>
+              <div className={classes.shipping}>
+                <span className={classes.shippingImg}></span>
+                <div>Գործում է առաքում</div>
               </div>
             </div>
-            <div className={classes.shipping}>
-              <span className={classes.shippingImg}></span>
-              <div>Գործում է առաքում</div>
+            <div className={classes.logo}>
+              <img src={bigboxLogoHeader} alt="logo" />
             </div>
-          </div>
-          <div className={classes.logo}>
-            <img src={bigboxLogoHeader} alt="logo" />
           </div>
           <div className={classes.rightBox}>
             <div>
@@ -72,7 +74,7 @@ const Header = () => {
               <span className={classes.bag}>
                 <div>2</div>
               </span>
-              <div>Գործում է առաքում</div>
+              <div>Զամբյուղ</div>
             </div>
           </div>
         </div>

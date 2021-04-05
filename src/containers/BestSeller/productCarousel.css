@@ -60,30 +60,22 @@
   top: 7px;
   left: 14px;
 }
-.product-carousel-item .tab {
+.product-carousel-item .tabs {
   position: absolute;
   top: 0;
   right: 14px;
+  display: flex;
 }
-.product-carousel-item .tab > p{
+.product-carousel-item .tabs > span {
+  position: relative;
+  margin-left: 10px;
+}
+.product-carousel-item .tabs p {
   position: absolute;
-  top: 12px;
-  right: -4px;
+  top: 40%;
+  left: 50%;
   color: #ffffff;
-  transform: rotate(90deg);
-  font-size: 12px;
-}
-.tabTwo {
-  position: absolute;
-  top: 0;
-  right: 45px;
-}
-.product-carousel-item .tabTwo > p{
-  position: absolute;
-  top: 12px;
-  right: 0;
-  color: #ffffff;
-  transform: rotate(90deg);
+  transform: translate(-50%, -50%) rotate(90deg);
   font-size: 12px;
 }
 .product-title {

@@ -1,10 +1,10 @@
 .container {
-  width: 90%;
+  max-width: 1368px;
   margin: auto;
-  padding: 0 15px;
+  padding: 0 58px;
 }
-.containerMobile {
+/* .containerMobile {
   width: 95%;
   margin: auto;
   padding: 0 5px;
-}
+} */

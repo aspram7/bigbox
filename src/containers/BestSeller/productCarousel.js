@@ -44,30 +44,20 @@ const ProductCarousel = () => {
                 <span className="sign">
                   <img src={el.exist ? sign : sold} alt="sign" />
                 </span>
-                <span className="tab">
-                  {el.new &&
-                    <>
+                <div className="tabs">
+                  {el.new && (
+                    <span>
                       <img src={newTab} alt="new" />
                       <p>ՆՈՐ</p>
-                    </>
-                  }
-                </span>
-                <span className="tabTwo">
-                  {el.new && el.sale &&
-                    <>
-                      <img src={newTab} alt="new" />
-                      <p>ՆՈՐ</p>
-                    </>
-                  }
-                </span>
-                <span className="tab">
-                  {el.sale && 
-                    <>
+                    </span>
+                  )}
+                  {el.sale && (
+                    <span>
                       <img src={saleTab} alt="sale" />
                       <p>ԶԵՂՉ</p>
-                    </>
-                  }
-                </span>
+                    </span>
+                  )}
+                </div>
                 <div className="product-carousel-content">
                   <p className="product-title">{el.title}</p>
                   <p className="product-price">{el.originalPrice}</p>

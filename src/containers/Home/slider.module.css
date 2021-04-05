@@ -1,16 +1,17 @@
 .sliderContentAll {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 .sliderContent {
+  margin: 36px 0;
 }
 .sliderButton {
-    composes: button from "../../components/Button/button.module.css"
+  composes: button from "../../components/Button/button.module.css";
 }
