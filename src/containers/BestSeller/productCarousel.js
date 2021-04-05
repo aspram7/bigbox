@@ -7,8 +7,8 @@ import starGold from "../../assets/svg/star-gold.svg";
 import starWhite from "../../assets/svg/star-white.svg";
 import sign from "../../assets/svg/sign.svg";
 import sold from "../../assets/svg/sold.svg";
-import newTag from "../../assets/svg/tab-pastel-green.svg";
-import saleTag from "../../assets/svg/tab-coral.svg";
+import newTab from "../../assets/svg/tab-pastel-green.svg";
+import saleTab from "../../assets/svg/tab-coral.svg";
 
 import "./productCarousel.css";
 
@@ -44,8 +44,30 @@ const ProductCarousel = () => {
                 <span className="sign">
                   <img src={el.exist ? sign : sold} alt="sign" />
                 </span>
-                <span className="tab">{el.new && <img src={newTag} alt="new" />}</span>
-                <span className="tab">{el.sale && <img src={saleTag} alt="sale" />}</span>
+                <span className="tab">
+                  {el.new &&
+                    <>
+                      <img src={newTab} alt="new" />
+                      <p>ՆՈՐ</p>
+                    </>
+                  }
+                </span>
+                <span className="tabTwo">
+                  {el.new && el.sale &&
+                    <>
+                      <img src={newTab} alt="new" />
+                      <p>ՆՈՐ</p>
+                    </>
+                  }
+                </span>
+                <span className="tab">
+                  {el.sale && 
+                    <>
+                      <img src={saleTab} alt="sale" />
+                      <p>ԶԵՂՉ</p>
+                    </>
+                  }
+                </span>
                 <div className="product-carousel-content">
                   <p className="product-title">{el.title}</p>
                   <p className="product-price">{el.originalPrice}</p>

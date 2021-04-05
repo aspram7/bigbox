@@ -65,6 +65,27 @@
   top: 0;
   right: 14px;
 }
+.product-carousel-item .tab > p{
+  position: absolute;
+  top: 12px;
+  right: -4px;
+  color: #ffffff;
+  transform: rotate(90deg);
+  font-size: 12px;
+}
+.tabTwo {
+  position: absolute;
+  top: 0;
+  right: 45px;
+}
+.product-carousel-item .tabTwo > p{
+  position: absolute;
+  top: 12px;
+  right: 0;
+  color: #ffffff;
+  transform: rotate(90deg);
+  font-size: 12px;
+}
 .product-title {
   font-size: 13px;
 }

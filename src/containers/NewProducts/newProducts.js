@@ -5,8 +5,8 @@ import starGold from "../../assets/svg/star-gold.svg";
 import starWhite from "../../assets/svg/star-white.svg";
 import sign from "../../assets/svg/sign.svg";
 import sold from "../../assets/svg/sold.svg";
-import newTag from "../../assets/svg/tab-pastel-green.svg";
-import saleTag from "../../assets/svg/tab-coral.svg";
+import newTab from "../../assets/svg/tab-pastel-green.svg";
+import saleTab from "../../assets/svg/tab-coral.svg";
 
 import classes from "./newProducts.module.css";
 
@@ -34,8 +34,30 @@ const NewProducts = () => {
                 <span className={classes.sign}>
                   <img src={el.exist ? sign : sold} alt="sign" />
                 </span>
-                <span className={classes.tab}>{el.new && <img src={newTag} alt="new" />}</span>
-                <span className={classes.tab}>{el.sale && <img src={saleTag} alt="sale" />}</span>
+                <span className={classes.tab}>
+                  {el.new && 
+                    <>
+                      <img src={newTab} alt="new" />
+                      <p>ՆՈՐ</p>
+                    </>
+                  }
+                </span>
+                <span  className={classes.tabTwo}>
+                  {el.new && el.sale &&
+                    <>
+                      <img src={newTab} alt="new" />
+                      <p>ՆՈՐ</p>
+                    </>
+                  }
+                </span>
+                <span className={classes.tab}>
+                  {el.sale && 
+                    <>
+                      <img src={saleTab} alt="sale" />
+                      <p>ԶԵՂՉ</p>
+                    </>
+                  }
+                </span>
                 <div className={classes.productContent}>
                   <p className={classes.productTitle}>{el.title}</p>
                   <p className={classes.productPrice}>{el.originalPrice}</p>

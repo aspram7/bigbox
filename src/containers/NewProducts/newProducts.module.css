@@ -50,6 +50,27 @@
   top: 0;
   right: 14px;
 }
+.tab > p{
+  position: absolute;
+  top: 12px;
+  right: -4px;
+  color: #ffffff;
+  transform: rotate(90deg);
+  font-size: 12px;
+}
+.tabTwo {
+  position: absolute;
+  top: 0;
+  right: 45px;
+}
+ .tabTwo > p{
+  position: absolute;
+  top: 12px;
+  right: 0;
+  color: #ffffff;
+  transform: rotate(90deg);
+  font-size: 12px;
+}
 .productTitle {
   font-size: 13px;
 }
