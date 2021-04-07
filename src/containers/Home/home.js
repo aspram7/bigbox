@@ -1,7 +1,6 @@
 import React from "react";
 import Slider from "./slider";
 import Banner from "../../components/Banner";
-import Button from "../../components/Button";
 import topRight from "../../assets/images/section-image-top-right.jpg";
 import bottomRight from "../../assets/images/section-image-bottom-right.jpg";
 import bestGift from "../../assets/images/best-gift.jpg";
