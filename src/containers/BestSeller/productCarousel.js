@@ -1,14 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
-import data from "../../data-mockup/data";
-
-import starGold from "../../assets/svg/star-gold.svg";
-import starWhite from "../../assets/svg/star-white.svg";
-import sign from "../../assets/svg/sign.svg";
-import sold from "../../assets/svg/sold.svg";
-import newTab from "../../assets/svg/tab-pastel-green.svg";
-import saleTab from "../../assets/svg/tab-coral.svg";
+import { useQuery } from "@apollo/client";
+import { GET_PRODUCTS_DATA } from "../../GraphQl/queries";
 
 import "./productCarousel.css";
 
@@ -21,6 +16,12 @@ function rating(n) {
 }
 
 const ProductCarousel = () => {
+
+  const { loading, error, data } = useQuery(GET_PRODUCTS_DATA, {
+    variables: { categoryId: "602e537c205367233c805511" },
+  });
+  console.log(data, 44444);
+
   return (
     <CarouselProvider
       naturalSlideWidth={1}
@@ -33,43 +34,29 @@ const ProductCarousel = () => {
       className="product-carousel"
     >
       <Slider moveThreshold={1}>
-        {data
-          .filter((el) => el.bestSeller)
+        {data &&
+        data.getCategoryProducts.products
           .map((el, idx) => {
             return (
-              <Slide key={el.id} index={idx} className="product-carousel-item">
-                <div className="product-carousel-img">
-                  <img src={el.img} alt="img" />
-                </div>
-                <span className="sign">
-                  <img src={el.exist ? sign : sold} alt="sign" />
-                </span>
-                <div className="tabs">
-                  {el.new && (
-                    <span>
-                      <img src={newTab} alt="new" />
-                      <p>ՆՈՐ</p>
-                    </span>
-                  )}
-                  {el.sale && (
-                    <span>
-                      <img src={saleTab} alt="sale" />
-                      <p>ԶԵՂՉ</p>
-                    </span>
-                  )}
-                </div>
-                <div className="product-carousel-content">
-                  <p className="product-title">{el.title}</p>
-                  <p className="product-price">{el.originalPrice}</p>
-                  <div className="product-rating">
-                    {rating(el.rating).map((item, idx) => {
-                      return <img key={idx} src={item ? starGold : starWhite} alt="star" />;
-                    })}
+              <Link to={`/product/${el.urlKey}`}>
+                <Slide key={el.id} index={idx} className="product-carousel-item">
+                  <div className="product-carousel-img">
+                    <img src={`https://vmall-api.yereone.com/media/6027acbe5fc2b4627256d612/${el.images[0].path}`} alt="img" />
                   </div>
-                </div>
-              </Slide>
+                  <div className="product-carousel-content">
+                    <p className="product-title">{el.name}</p>
+                    <p className="product-price">{el.price}</p>
+                    {/* <div className="product-rating">
+                      {rating(el.rating).map((item, idx) => {
+                        return <img key={idx} src={item ? starGold : starWhite} alt="star" />;
+                      })}
+                    </div> */}
+                  </div>
+                </Slide>
+            </Link>    
             );
-          })}
+          })
+        }
       </Slider>
       <div className="arrow-button">
         <ButtonBack className="button-back"></ButtonBack>

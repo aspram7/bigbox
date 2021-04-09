@@ -3,7 +3,7 @@ import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from "@apollo/c
 import Header from "../src/components/Header";
 import Sections from "../src/containers/Sections";
 import { useWindowWidth } from "./helpers/getWindowWidth";
-import Image from "./components/Image";
+import ProductItem from "./components/ProductItem/productItem";
 import "./App.css";
 
 export const WidthContext = React.createContext(null);
@@ -25,7 +25,7 @@ function App() {
         <ApolloProvider client={client}>
           <Header />
           <Sections />
-          <Image />
+          <ProductItem />
         </ApolloProvider>
       </WidthContext.Provider>
     </div>

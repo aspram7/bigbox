@@ -5,7 +5,7 @@ import { useLazyQuery } from "@apollo/client";
 import { GET_SLIDER_IMAGES } from "../../GraphQl/queries";
 import Button from "../../components/Button";
 import { useSizes } from "../../helpers/useSizes";
-import Image11 from "../../components/Image";
+import ImageProduct from "../../components/Image";
 
 import classes from "./slider.module.css";
 
@@ -41,13 +41,12 @@ const SliderMain = ({ className }) => {
             data.slider.slides.map((el) => {
               return (
                 <Slide key={el.id} index={el.id}>
-                  <Image11
+                  <ImageProduct
                     imgUrl={`https://vmall-api.yereone.com/media/6027acbe5fc2b4627256d612/${el.image}`}
                     handleSizes={handleSizes}
                   />
-                  <div className={classes.sliderContentAll}>
+                  <div className={el.contentPosition}>
                     <div
-                      className="middleCenter"
                       dangerouslySetInnerHTML={{ __html: el.content }}
                     ></div>
                     <Button classes={{ button: classes.sliderButton }}>ԱՎԵԼԻՆ</Button>
