@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import Layout from "../Layout";
+import Menu from "../Menu";
 import { WidthContext } from "../../App";
 import bigboxLogoHeader from "../../assets/svg/bigbox-logo-header.svg";
 import hamburgerMenu from "../../assets/svg/hamburger-menu.svg";
@@ -78,6 +79,7 @@ const Header = () => {
             </div>
           </div>
         </div>
+        <Menu />
       </Layout>
     </div>
   );

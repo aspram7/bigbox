@@ -1,6 +1,5 @@
 import React from "react";
 import Layout from "../../components/Layout";
-import Menu from "../../components/Menu";
 import Home from "../Home";
 import BestSeller from "../BestSeller";
 import Gift from "../Gift";
@@ -11,7 +10,6 @@ const Sections = () => {
   return (
     <div>
       <Layout>
-        <Menu />
         <Home />
         <BestSeller />
         <Gift />

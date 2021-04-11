@@ -1,10 +1,9 @@
 import React from "react";
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
-import Header from "../src/components/Header";
-import Sections from "../src/containers/Sections";
 import { useWindowWidth } from "./helpers/getWindowWidth";
-import ProductItem from "./components/ProductItem/productItem";
 import "./App.css";
+
+import Router from "./routes/appRoutes";
 
 export const WidthContext = React.createContext(null);
 
@@ -23,9 +22,7 @@ function App() {
     <div className="App">
       <WidthContext.Provider value={width}>
         <ApolloProvider client={client}>
-          <Header />
-          <Sections />
-          <ProductItem />
+          <Router />
         </ApolloProvider>
       </WidthContext.Provider>
     </div>

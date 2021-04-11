@@ -52,6 +52,9 @@
   transition: 0.3s linear;
   width: 100%;
 }
+.product-carousel-item {
+  cursor: pointer;
+}
 .product-carousel-item > div > .product-carousel-content {
   margin: 10px 0;
 }

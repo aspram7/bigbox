@@ -1,7 +1,20 @@
 .section {
-    display: flex;
-    align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 32px;
+  align-items: center;
+  border-top: 0.2px solid #c5c5c5;
 }
 .section > img {
-    width: 60%;
+  width: 100%;
+}
+.exist {
+  display: flex;
+}
+.exist > img {
+  margin-right: 8px;
+}
+.exist > p {
+  color: #757575;
+  font-size: 13px;
 }
