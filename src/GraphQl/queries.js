@@ -48,6 +48,18 @@ export const GET_PRODUCT_DATA = gql`
           images{
             path
           }
+          price
+          discount
+          discountType
+          discountedPrice
+          quantity
+          description
+          shortDescription
+          sku
+          averageRating
+          reviewCount
+          pageTitle
+          metaDescription
         }
       }
       breadcrumbs {

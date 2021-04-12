@@ -7,7 +7,7 @@ const button = (props) => {
   const classes = mergeClasses(defaultClasses, props.classes);
   // console.log(props, 666666666);
   return (
-    <button className={classes.button} onClick={props.onClick}>
+    <button  type="submit" className={classes.button} onClick={props.onClick}>
       {props.children}
     </button>
   );

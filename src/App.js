@@ -1,9 +1,9 @@
 import React from "react";
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
 import { useWindowWidth } from "./helpers/getWindowWidth";
-import "./App.css";
-
 import Router from "./routes/appRoutes";
+
+import "./App.css";
 
 export const WidthContext = React.createContext(null);
 

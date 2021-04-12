@@ -5,11 +5,13 @@ import { GET_PRODUCT_DATA } from "../../GraphQl/queries";
 import Layout from "../Layout";
 import Button from "../Button";
 import ProductItemCarousel from "./productItemCarousel";
+import Form from "../Form"
 
 import image1 from "../../assets/images/best-gift.jpg";
 
 import inStock from "../../assets/svg/in-stock.svg";
 import star from "../../assets/svg/star-gold.svg";
+import starWhite from "../../assets/svg/star-white.svg";
 import classes from "./productItem.module.css";
 
 const ProductItem = () => {
@@ -70,7 +72,7 @@ const ProductItem = () => {
                   <p>Գրել կարծիք</p>
                 </div>
                 <h6 className={classes.title}>{data.resolveUnknownRoute.item.name}</h6>
-                <div className={classes.price}>6.000Դ</div>
+                <div className={classes.price}>{data.resolveUnknownRoute.item.price}</div>
                 <div className={classes.text}>
                   Հայտնի է, որ ընթերցողը, կարդալով հասկանալի տեքստ, չի կարողանա կենտրոնանալ տեքստի
                   ձևավորման վրա: Lorem Ipsum օգտագործելը բացատրվում է նրանով, որ այն բաշխում է
@@ -181,31 +183,40 @@ const ProductItem = () => {
           <div className={classes.parameter}>
             {aboutProduct === 1 && (
               <div className={classes.parameterBody}>
-                <p>
-                  Շատ համակարգչային տպագրական ծրագրեր և ինտերնետային էջերի խմբագրիչներ այն
-                  օգտագործում են որպես իրենց ստանդարտ տեքստային մոդել, և հետևապես, ինտերնետում Lorem
-                  Ipsum-ի որոնման արդյունքում կարելի է հայտնաբերել էջեր, որոնք դեռ նոր են կերտվում:
-                  Ժամանակի ընթացքում ձևավորվել են Lorem Ipsum-ի տարբեր վերսիաներ` երբեմն ներառելով
-                  պատահական տեքստեր, երբեմն էլ հատուկ իմաստ (հումոր և նմանատիպ բովանդակություն): Շատ
-                  համակարգչային տպագրական ծրագրեր և ինտերնետային էջերի խմբագրիչներ այն օգտագործում
-                  են որպես իրենց ստանդարտ տեքստային մոդել, և հետևապես, ինտերնետում Lorem Ipsum-ի
-                  որոնման արդյունքում կարելի է հայտնաբերել էջեր, որոնք դեռ նոր են կերտվում: Ժամանակի
-                  ընթացքում ձևավորվել են Lorem Ipsum-ի տարբեր վերսիաներ` երբեմն ներառելով պատահական
-                  տեքստեր, երբեմն էլ հատուկ իմաստ (հումոր և նմանատիպ բովանդակություն):
-                </p>
+                <table>
+                <tbody>
+                  <tr>
+                    <td>Տեսակ</td>
+                    <td>Հաստ կազմ</td>
+                  </tr>
+                  <tr>
+                    <td>Չափ</td>
+                    <td>20x20</td>
+                  </tr>
+                  <tr>
+                    <td>Էջեր</td>
+                    <td>240</td>
+                  </tr>
+                  </tbody>
+                </table>
               </div>
             )}
           </div>
           <div className={classes.opinions}>
             {aboutProduct === 2 && (
               <div className={classes.opinionsBody}>
-                <p>
-                  Շատ համակարգչային տպագրական ծրագրեր և ինտերնետային էջերի խմբագրիչներ այն
-                  օգտագործում են որպես իրենց ստանդարտ տեքստային մոդել, և հետևապես, ինտերնետում Lorem
-                  Ipsum-ի որոնման արդյունքում կարելի է հայտնաբերել էջեր, որոնք դեռ նոր են կերտվում:
-                  Ժամանակի ընթացքում ձևավորվել են Lorem Ipsum-ի տարբեր վերսիաներ` երբեմն ներառելով
-                  պատահական տեքստեր, երբեմն էլ հատուկ իմաստ (հումոր և նմանատիպ բովանդակություն):
-                </p>
+                <h5>ԳՐԵԼ ԿԱՐԾԻՔ</h5>
+                <div>
+                <p>Գնահատական</p>
+                <div className={classes.optionRating}>
+                    <img src={starWhite} alt="star" />
+                    <img src={starWhite} alt="star" />
+                    <img src={starWhite} alt="star" />
+                    <img src={starWhite} alt="star" />
+                    <img src={starWhite} alt="star" />
+                  </div>
+                </div>
+                <Form />
               </div>
             )}
           </div>
