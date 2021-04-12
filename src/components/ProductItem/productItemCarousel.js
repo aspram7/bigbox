@@ -19,11 +19,8 @@ const ProductItemCarousel = (props) => {
     <CarouselProvider
       naturalSlideWidth={1}
       naturalSlideHeight={1}
-      totalSlides={3}
-      interval={3000}
-      isPlaying={true}
-      infinite={true}
-      visibleSlides={3}
+      totalSlides={7}
+      visibleSlides={7}
       className="product-item-carousel"
     >
       <Slider moveThreshold={1}>
