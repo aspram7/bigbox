@@ -14,15 +14,7 @@ const Home = () => {
   return (
     <div className={classes.section}>
       <div className={classes.slider}>
-        <Slider className={"sliderDots"}>
-          {/* <div className={classes.sliderText}>
-            <p>
-              ԺԱՄԱՑՈՒՅՑՆԵՐ <br /> <span>ԶԵՂՉ</span>
-            </p>
-            <div>20%-30%</div>
-            <Button>ԱՎԵԼԻՆ</Button>
-          </div> */}
-        </Slider>
+        <Slider className={"sliderDots"}></Slider>
       </div>
       <Banner classes={{ banner: classes.bannerTop }} url={topRight} bannerText={"top-left"}>
         <p>

@@ -21,8 +21,6 @@ const ProductCarousel = () => {
     variables: { categoryId: "602e537c205367233c805511" },
   });
 
-  console.log(data, 999999999);
-
   const handleProduct = (key) => {
     history.push(`/product/${key}`);
   };

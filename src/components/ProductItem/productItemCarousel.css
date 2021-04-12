@@ -1,0 +1,10 @@
+.product-item-carousel {
+  margin: 12px 0;
+}
+.product-item-carousel img {
+  width: 100%;
+}
+.product-item-carousel ul {
+  display: flex;
+  gap: 12px;
+}
