@@ -70,13 +70,25 @@ export const GET_PRODUCT_DATA = gql`
   }
 `;
 
-export const SET_OPTIONS_DATA = gql`
-  mutation UpdateOptions(
+export const GET_PRODUCT_REVIEWS = gql`
+  query GetReviews($productId: String!) {
+    productReviews(productId: $productId) {
+      id
+      name
+      review
+      rating
+      productId
+      status     
+    }
+  }
+`;
+
+export const SET_PRODUCT_REVIEW = gql`
+  mutation SetProductReview(
     $name: String!
     $productId: String
     $rating: Float
     $review: String
-    $summary: String
   ) {
     addProductReview(
       reviewData: {
@@ -84,8 +96,8 @@ export const SET_OPTIONS_DATA = gql`
         productId: $productId
         rating: $rating
         review: $review
-        summary: $summary
-      }
-    )
+      }){
+        name
+    }
   }
 `;

@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { useQuery, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useParams } from "react-router";
-import { GET_PRODUCT_DATA, SET_OPTIONS_DATA } from "../../GraphQl/queries";
+import StarRatings from 'react-star-ratings';
+import { GET_PRODUCT_DATA, GET_PRODUCT_REVIEWS } from "../../GraphQl/queries";
 import Layout from "../Layout";
 import Button from "../Button";
 import ProductItemCarousel from "./productItemCarousel";
 import Form from "../Form";
 
 import inStock from "../../assets/svg/in-stock.svg";
-import star from "../../assets/svg/star-gold.svg";
-import starWhite from "../../assets/svg/star-white.svg";
 import classes from "./productItem.module.css";
 
 const ProductItem = () => {
@@ -17,18 +16,39 @@ const ProductItem = () => {
   const [color, setColor] = useState("red");
   const [size, setSize] = useState("chose");
   const [aboutProduct, setAboutProduct] = useState(0);
+  const [review, setReview] =useState({
+    rating: 0,
+    name: "",
+    review: ""
+  });
+  
   const { urlKey } = useParams();
   const { loading, error, data } = useQuery(GET_PRODUCT_DATA, {
     variables: { route: urlKey },
+  });
+  const { data: dataReview } = useQuery(GET_PRODUCT_REVIEWS, {
+    variables: { productId: data && data.resolveUnknownRoute.id },
   });
 
   const changeQuantity = (n) => {
     if (quantity <= 1 && n === -1) return;
     setQuantity(quantity + n);
   };
+
   const changeContent = (n) => {
     setAboutProduct(n);
   };
+
+  const changeRating = ( newRating, name ) => {
+    setReview({...review, rating: newRating});
+  }
+
+  const handleReview = (rating, name, review) => {
+    setReview({
+      rating: rating,
+      name: name,
+      review: review})
+  }
 
   return (
     <Layout>
@@ -37,7 +57,7 @@ const ProductItem = () => {
           <>
             {data &&
               data.resolveUnknownRoute.item.images.map((el, idx) => {
-                return <ProductItemCarousel />;
+                return <ProductItemCarousel key={idx}/>;
               })}
           </>
           <div>
@@ -53,11 +73,13 @@ const ProductItem = () => {
             </div>
             <div className={classes.opinion}>
               <div className={classes.rating}>
-                <img src={star} alt="star" />
-                <img src={star} alt="star" />
-                <img src={star} alt="star" />
-                <img src={star} alt="star" />
-                <img src={star} alt="star" />
+              <StarRatings
+                rating={2.403}
+                starDimension="10px"
+                starSpacing="1px"
+                starRatedColor='#FFC107'
+                starEmptyColor="#ECEFF1"
+              />
               </div>
               <p>Գրել կարծիք</p>
             </div>
@@ -117,7 +139,7 @@ const ProductItem = () => {
               </div>
               <Button classes={{ button: classes.productItemButton }}>ԱՎԵԼԱՑՆԵԼ ԶԱՄԲՅՈՒՂ</Button>
             </div>
-            <div className={classes.code}>ԿՈԴ: 9591</div>
+            <div className={classes.code}>ԿՈԴ: {data && data.resolveUnknownRoute.id}</div>
             <div className={classes.socialMedia}>
               <span className={classes.facebook}></span>
               <span className={classes.instagram}></span>
@@ -191,18 +213,41 @@ const ProductItem = () => {
           <div className={classes.opinions}>
             {aboutProduct === 2 && (
               <div className={classes.opinionsBody}>
+                {dataReview && dataReview.productReviews.map((el, idx) => {
+                  return <div className={classes.opinionspeople} key={idx}>
+                  <StarRatings
+                    rating={el.rating}
+                    starDimension="10px"
+                    starSpacing="1px"
+                    starRatedColor='#FFC107'
+                    starEmptyColor="#ECEFF1"
+                  />
+                <div className={classes.opinionsRating}>
+                  <p className={classes.opinionName}>{el.name}</p>
+                  <p>/ 01.04.2019</p>
+                </div>
+                <p>{el.review}</p>
+                </div>
+                })}
+                
                 <h5>ԳՐԵԼ ԿԱՐԾԻՔ</h5>
-                <div>
+                <div className={classes.optionRating}>
                   <p>Գնահատական</p>
-                  <div className={classes.optionRating}>
-                    <img src={starWhite} alt="star" />
-                    <img src={starWhite} alt="star" />
-                    <img src={starWhite} alt="star" />
-                    <img src={starWhite} alt="star" />
-                    <img src={starWhite} alt="star" />
+                  <div>
+                    <StarRatings
+                      rating={review.rating}
+                      changeRating={changeRating}
+                      numberOfStars={5}
+                      name='rating'
+                      starDimension="13px"
+                      starSpacing="1px"
+                      starRatedColor='#FFC107'
+                      starHoverColor='#FFC107'
+                      starEmptyColor="#ECEFF1"
+                    />
                   </div>
                 </div>
-                <Form />
+                <Form rating={review.rating} productId={data && data.resolveUnknownRoute.id} handleReview={handleReview}/>
               </div>
             )}
           </div>

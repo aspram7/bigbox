@@ -1,9 +1,10 @@
+
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useMutation } from "@apollo/client";
-import { SET_OPTIONS_DATA } from "../../GraphQl/queries";
+import { useQuery } from "@apollo/client";
+import { GET_PRODUCT_REVIEWS, SET_PRODUCT_REVIEW } from "../../GraphQl/queries";
 import Button from "../Button";
-
 import classes from "./form.module.css";
 
 const validationSchema = Yup.object().shape({
@@ -11,7 +12,7 @@ const validationSchema = Yup.object().shape({
   mail: Yup.string().email("Invalid email").required("Required"),
 });
 
-const Form = () => {
+const Form = ({rating, productId, handleReview}) => {
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -23,16 +24,22 @@ const Form = () => {
       console.log(values);
     },
   });
+  const { loading, error, data, refetch } = useQuery(GET_PRODUCT_REVIEWS, {
+    variables: { productId: productId },
+  });
 
-  const [updateOptions] = useMutation(SET_OPTIONS_DATA);
+  const [setProductReview] = useMutation(SET_PRODUCT_REVIEW);
 
-  console.log(updateOptions(), 777777);
+
+  console.log(data, 77777777)
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        updateOptions({ variables: { name: formik.values.name } });
+        setProductReview({ variables: { productId, name: formik.values.name, rating, review: formik.values.comment } });
+        handleReview(rating, formik.values.name, formik.values.comment);
+        refetch()
       }}
       className={classes.form}
     >
