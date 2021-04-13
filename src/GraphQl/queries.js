@@ -78,26 +78,15 @@ export const GET_PRODUCT_REVIEWS = gql`
       review
       rating
       productId
-      status     
+      status
     }
   }
 `;
 
 export const SET_PRODUCT_REVIEW = gql`
-  mutation SetProductReview(
-    $name: String!
-    $productId: String
-    $rating: Float
-    $review: String
-  ) {
+  mutation SetProductReview($name: String!, $productId: String, $rating: Float, $review: String) {
     addProductReview(
-      reviewData: {
-        name: $name
-        productId: $productId
-        rating: $rating
-        review: $review
-      }){
-        name
-    }
+      reviewData: { name: $name, productId: $productId, rating: $rating, review: $review }
+    )
   }
 `;

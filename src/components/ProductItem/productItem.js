@@ -1,10 +1,11 @@
-import { useState } from "react";
-import { useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
+import { useQuery, useLazyQuery } from "@apollo/client";
 import { useParams } from "react-router";
-import StarRatings from 'react-star-ratings';
+import StarRatings from "react-star-ratings";
 import { GET_PRODUCT_DATA, GET_PRODUCT_REVIEWS } from "../../GraphQl/queries";
 import Layout from "../Layout";
 import Button from "../Button";
+import { ColorSelect } from "../DropDown";
 import ProductItemCarousel from "./productItemCarousel";
 import Form from "../Form";
 
@@ -16,19 +17,24 @@ const ProductItem = () => {
   const [color, setColor] = useState("red");
   const [size, setSize] = useState("chose");
   const [aboutProduct, setAboutProduct] = useState(0);
-  const [review, setReview] =useState({
+  const [review, setReview] = useState({
     rating: 0,
     name: "",
-    review: ""
+    review: "",
   });
-  
+
   const { urlKey } = useParams();
   const { loading, error, data } = useQuery(GET_PRODUCT_DATA, {
     variables: { route: urlKey },
   });
-  const { data: dataReview } = useQuery(GET_PRODUCT_REVIEWS, {
+
+  const [getProductReviews, { data: dataReview }] = useLazyQuery(GET_PRODUCT_REVIEWS, {
     variables: { productId: data && data.resolveUnknownRoute.id },
   });
+
+  useEffect(() => {
+    getProductReviews();
+  }, [dataReview]);
 
   const changeQuantity = (n) => {
     if (quantity <= 1 && n === -1) return;
@@ -39,16 +45,17 @@ const ProductItem = () => {
     setAboutProduct(n);
   };
 
-  const changeRating = ( newRating, name ) => {
-    setReview({...review, rating: newRating});
-  }
+  const changeRating = (newRating, name) => {
+    setReview({ ...review, rating: newRating });
+  };
 
   const handleReview = (rating, name, review) => {
     setReview({
       rating: rating,
       name: name,
-      review: review})
-  }
+      review: review,
+    });
+  };
 
   return (
     <Layout>
@@ -57,7 +64,7 @@ const ProductItem = () => {
           <>
             {data &&
               data.resolveUnknownRoute.item.images.map((el, idx) => {
-                return <ProductItemCarousel key={idx}/>;
+                return <ProductItemCarousel key={idx} />;
               })}
           </>
           <div>
@@ -73,13 +80,13 @@ const ProductItem = () => {
             </div>
             <div className={classes.opinion}>
               <div className={classes.rating}>
-              <StarRatings
-                rating={2.403}
-                starDimension="10px"
-                starSpacing="1px"
-                starRatedColor='#FFC107'
-                starEmptyColor="#ECEFF1"
-              />
+                <StarRatings
+                  rating={2.403}
+                  starDimension="10px"
+                  starSpacing="1px"
+                  starRatedColor="#FFC107"
+                  starEmptyColor="#ECEFF1"
+                />
               </div>
               <p>Գրել կարծիք</p>
             </div>
@@ -94,17 +101,7 @@ const ProductItem = () => {
             <div className={classes.style}>
               <div className={classes.color}>
                 <p>ԳՈՒՅՆ։</p>
-                <select
-                  name="car"
-                  className={classes.colorOptions}
-                  value={color}
-                  onChange={(e) => setColor(e.target.value)}
-                >
-                  <option value="red">Կարմիր</option>
-                  <option value="green">green</option>
-                  <option value="white">white</option>
-                  <option value="black">black</option>
-                </select>
+                <ColorSelect colorName="color" value="red" onChange={() => {}} children="red" />
               </div>
               <div className={classes.size}>
                 <p>ՉԱՓ։</p>
@@ -213,23 +210,26 @@ const ProductItem = () => {
           <div className={classes.opinions}>
             {aboutProduct === 2 && (
               <div className={classes.opinionsBody}>
-                {dataReview && dataReview.productReviews.map((el, idx) => {
-                  return <div className={classes.opinionspeople} key={idx}>
-                  <StarRatings
-                    rating={el.rating}
-                    starDimension="10px"
-                    starSpacing="1px"
-                    starRatedColor='#FFC107'
-                    starEmptyColor="#ECEFF1"
-                  />
-                <div className={classes.opinionsRating}>
-                  <p className={classes.opinionName}>{el.name}</p>
-                  <p>/ 01.04.2019</p>
-                </div>
-                <p>{el.review}</p>
-                </div>
-                })}
-                
+                {dataReview &&
+                  dataReview.productReviews.map((el, idx) => {
+                    return (
+                      <div className={classes.opinionspeople} key={idx}>
+                        <StarRatings
+                          rating={el.rating}
+                          starDimension="10px"
+                          starSpacing="1px"
+                          starRatedColor="#FFC107"
+                          starEmptyColor="#ECEFF1"
+                        />
+                        <div className={classes.opinionsRating}>
+                          <p className={classes.opinionName}>{el.name}</p>
+                          <p>/ 01.04.2019</p>
+                        </div>
+                        <p>{el.review}</p>
+                      </div>
+                    );
+                  })}
+
                 <h5>ԳՐԵԼ ԿԱՐԾԻՔ</h5>
                 <div className={classes.optionRating}>
                   <p>Գնահատական</p>
@@ -238,16 +238,20 @@ const ProductItem = () => {
                       rating={review.rating}
                       changeRating={changeRating}
                       numberOfStars={5}
-                      name='rating'
+                      name="rating"
                       starDimension="13px"
                       starSpacing="1px"
-                      starRatedColor='#FFC107'
-                      starHoverColor='#FFC107'
+                      starRatedColor="#FFC107"
+                      starHoverColor="#FFC107"
                       starEmptyColor="#ECEFF1"
                     />
                   </div>
                 </div>
-                <Form rating={review.rating} productId={data && data.resolveUnknownRoute.id} handleReview={handleReview}/>
+                <Form
+                  rating={review.rating}
+                  productId={data && data.resolveUnknownRoute.id}
+                  handleReview={handleReview}
+                />
               </div>
             )}
           </div>

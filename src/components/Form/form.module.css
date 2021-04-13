@@ -1,31 +1,42 @@
 .formInputs {
-    display: grid;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto auto;
-    grid-gap: 14px;
-    position: relative;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  grid-gap: 14px;
+  position: relative;
 }
-input[type=text], textarea {
-    border: 0.5px solid #D8D8D8;
-    outline: none;
-    padding: 10px 15px;
-    width: 100%; 
-} 
+input[type="text"],
 textarea {
-    grid-column: 1 / 3;
+  border: 0.5px solid #d8d8d8;
+  outline: none;
+  padding: 10px 15px;
+  width: 100%;
+}
+textarea {
+  grid-column: 1 / 3;
 }
 .formButton {
-    margin-top: 23px;
-    composes: button import from "../Button/button.module.css";
-    background-color: #33C0CB;
-    border-color: #33C0CB;
-    color: #ffffff;
-    padding: 11px 52px;
+  margin-top: 23px;
+  composes: button from "../Button/button.module.css";
+  background-color: #33c0cb;
+  border-color: #33c0cb;
+  color: #ffffff;
+  padding: 11px 52px;
 }
 .error {
-    color: red;
-    position: absolute;
-    top: 30px;
-    font-size: 10px;
+  color: red;
+  position: absolute;
+  top: 30px;
+  font-size: 10px;
 }
-
+.disabledButton {
+  margin-top: 23px;
+  background-color: #33c0cb;
+  border-color: #33c0cb;
+  color: #ffffff;
+  padding: 11px 52px;
+  outline: none;
+  border-radius: 62px;
+  opacity: 0.6;
+  pointer-events: none;
+}

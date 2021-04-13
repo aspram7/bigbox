@@ -65,7 +65,7 @@
   display: flex;
   width: 50%;
 }
-.color > p,
+/* .color > p,
 .size > p {
   font-size: 13px;
 }
@@ -77,7 +77,7 @@
   color: #4b4b4b;
   margin-left: 20px;
   width: 40%;
-}
+} */
 .quantity {
   display: flex;
   width: 80%;

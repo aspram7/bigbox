@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { CarouselProvider, Slider, Slide, DotGroup } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
-import { useLazyQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { GET_SLIDER_IMAGES } from "../../GraphQl/queries";
 import Button from "../../components/Button";
 import { useSizes } from "../../helpers/useSizes";
@@ -12,13 +12,9 @@ import classes from "./slider.module.css";
 const SliderMain = ({ className }) => {
   const [sizes, setSizes] = useState([]);
 
-  const [getSliderImages, { loading, error, data }] = useLazyQuery(GET_SLIDER_IMAGES, {
+  const { loading, error, data } = useQuery(GET_SLIDER_IMAGES, {
     variables: { sliderId: "606ec4f87a26b539448f40e0" },
   });
-
-  useEffect(() => {
-    getSliderImages();
-  }, []);
 
   const handleSizes = (width, height) => {
     setSizes([...sizes, { width, height }]);
@@ -46,9 +42,7 @@ const SliderMain = ({ className }) => {
                     handleSizes={handleSizes}
                   />
                   <div className={el.contentPosition}>
-                    <div
-                      dangerouslySetInnerHTML={{ __html: el.content }}
-                    ></div>
+                    <div dangerouslySetInnerHTML={{ __html: el.content }}></div>
                     <Button classes={{ button: classes.sliderButton }}>ԱՎԵԼԻՆ</Button>
                   </div>
                 </Slide>
