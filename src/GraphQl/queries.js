@@ -20,32 +20,32 @@ export const GET_SLIDER_IMAGES = gql`
 
 export const GET_PRODUCTS_DATA = gql`
   query GetProductsData($categoryId: ID!) {
-    getCategoryProducts(categoryId: $categoryId){
-      products{
+    getCategoryProducts(categoryId: $categoryId) {
+      products {
         id
-        name 
-        price 
+        name
+        price
         discountedPrice
         averageRating
         urlKey
-        images{
-         path
+        images {
+          path
         }
-      } 
+      }
     }
   }
 `;
 
 export const GET_PRODUCT_DATA = gql`
   query GetCarouselImages($route: String!) {
-    resolveUnknownRoute(route: $route){
+    resolveUnknownRoute(route: $route) {
       id
       type
       item {
         ... on Product {
           id
           name
-          images{
+          images {
             path
           }
           price
@@ -67,5 +67,25 @@ export const GET_PRODUCT_DATA = gql`
         link
       }
     }
+  }
+`;
+
+export const SET_OPTIONS_DATA = gql`
+  mutation UpdateOptions(
+    $name: String!
+    $productId: String
+    $rating: Float
+    $review: String
+    $summary: String
+  ) {
+    addProductReview(
+      reviewData: {
+        name: $name
+        productId: $productId
+        rating: $rating
+        review: $review
+        summary: $summary
+      }
+    )
   }
 `;

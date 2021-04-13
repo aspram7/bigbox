@@ -1,5 +1,6 @@
 .product-item-carousel {
-  margin: 12px 0;
+  margin-top: 12px;
+  position: relative;
 }
 .product-item-carousel img {
   width: 100%;
@@ -7,4 +8,32 @@
 .product-item-carousel ul {
   display: flex;
   gap: 12px;
+}
+.product-item-arrow-button {
+  position: absolute;
+  top: 94%;
+  width: 100%;
+  transform: translateY(-40%);
+  display: flex;
+  justify-content: space-between;
+}
+.product-item-arrow-button button {
+  border: none;
+  outline: none;
+  width: 20%;
+}
+.product-item-button-back,
+.product-item-button-next {
+  font-family: "icomoon";
+  font-size: 10px;
+  color: #000000;
+  border: none;
+  outline: none;
+  background-color: #fff;
+}
+.product-item-button-back:before {
+  content: "\e917";
+}
+.product-item-button-next:before {
+  content: "\e918";
 }

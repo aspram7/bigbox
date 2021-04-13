@@ -1,6 +1,5 @@
 .section {
   border-top: 0.2px solid #c5c5c5;
-  padding-top: 20px;
 }
 .sectionTop {
   border-bottom: 0.2px solid #c5c5c5;
@@ -8,6 +7,7 @@
   grid-template-columns: 1fr 1fr;
   grid-gap: 32px;
   align-items: center;
+  padding: 20px 0;
 }
 .productSlider > img {
   width: 100%;
@@ -201,7 +201,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 .opinionsBody p {
   font-size: 13px;
-  color: #9A9A9A;
+  color: #9a9a9a;
 }
 .opinionsBody > div {
   display: flex;
@@ -217,12 +217,13 @@ input[type="number"]::-webkit-inner-spin-button {
 table {
   border-collapse: collapse;
   width: 100%;
-  color: #5C5C5C;
+  color: #5c5c5c;
   font-size: 13px;
   margin-top: 26px;
 }
-td, th {
-  border: 1px solid #D0D0D0;
+td,
+th {
+  border: 1px solid #d0d0d0;
   text-align: left;
   padding: 6px 0 6px 21px;
 }
@@ -230,6 +231,5 @@ td:first-child {
   width: 23%;
 }
 tr:nth-child(even) {
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
 }
-
