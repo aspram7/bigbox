@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
-import { useQuery, useLazyQuery } from "@apollo/client";
+import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { useParams } from "react-router";
 import StarRatings from "react-star-ratings";
-import { GET_PRODUCT_DATA, GET_PRODUCT_REVIEWS } from "../../GraphQl/queries";
+import { GET_PRODUCT_DATA, GET_PRODUCT_REVIEWS, CREATE_CART, ADD_ITEM_CART } from "../../GraphQl/queries";
 import Layout from "../Layout";
 import Button from "../Button";
 import { ColorSelect } from "../DropDown";
 import ProductItemCarousel from "./productItemCarousel";
-import Form from "../Form";
+import ReviewForm from "../ReviewForm";
 
 import inStock from "../../assets/svg/in-stock.svg";
 import classes from "./productItem.module.css";
@@ -33,8 +33,10 @@ const ProductItem = () => {
   });
 
   useEffect(() => {
-    getProductReviews();
-  }, [dataReview]);
+    if(data){
+      getProductReviews();
+    }
+  }, [data]);
 
   const changeQuantity = (n) => {
     if (quantity <= 1 && n === -1) return;
@@ -56,6 +58,33 @@ const ProductItem = () => {
       review: review,
     });
   };
+
+  const [setCreateCart, { data: createCardId }] = useMutation(CREATE_CART);
+  // const { data: cartData } = useQuery(CART_QUERY, {
+  //   variables: { cartId: createCardId && createCardId.createCart },
+  // });
+  const [setItemCart, { data: addItemToCart }] = useMutation(ADD_ITEM_CART);
+
+  console.log(addItemToCart, 555555555)
+
+  const handleCart = () => {
+      if (localStorage.getItem('id')) {
+        return
+      } else {
+      //   new Promise((resolve) => {
+      //     resolve(setCreateCart());
+      // }).then(res => {
+      //     localStorage.setItem("id", res.data.createCart)
+      // })
+      (async () => {
+        let res = await setCreateCart();
+        await localStorage.setItem("id", res.data.createCart);
+        await setItemCart({
+          variables: { cartId : res.data.createCart},
+        });
+      })();
+    }
+  }
 
   return (
     <Layout>
@@ -134,7 +163,7 @@ const ProductItem = () => {
                 <span className={classes.arrowTop} onClick={() => changeQuantity(1)}></span>
                 <span className={classes.arrowDown} onClick={() => changeQuantity(-1)}></span>
               </div>
-              <Button classes={{ button: classes.productItemButton }}>ԱՎԵԼԱՑՆԵԼ ԶԱՄԲՅՈՒՂ</Button>
+              <Button classes={{ button: classes.productItemButton }} onClick={handleCart}>ԱՎԵԼԱՑՆԵԼ ԶԱՄԲՅՈՒՂ</Button>
             </div>
             <div className={classes.code}>ԿՈԴ: {data && data.resolveUnknownRoute.id}</div>
             <div className={classes.socialMedia}>
@@ -247,7 +276,7 @@ const ProductItem = () => {
                     />
                   </div>
                 </div>
-                <Form
+                <ReviewForm
                   rating={review.rating}
                   productId={data && data.resolveUnknownRoute.id}
                   handleReview={handleReview}

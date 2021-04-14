@@ -4,7 +4,7 @@ import { useMutation } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import { GET_PRODUCT_REVIEWS, SET_PRODUCT_REVIEW } from "../../GraphQl/queries";
 import Button from "../Button";
-import classes from "./form.module.css";
+import classes from "./reviewForm.module.css";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().min(2, "Too Short!").max(70, "Too Long!").required("Required"),
@@ -21,7 +21,7 @@ const ReviewForm = ({ rating, productId, handleReview }) => {
     validationSchema,
     onSubmit: (values, formik) => {
       setProductReview({
-        variables: { productId, name: values.name, rating, review: values.comment },
+        variables: { productId, name: values.name, rating: rating || 0, review: values.comment },
       });
       handleReview(rating, values.name, values.comment);
       refetch();
