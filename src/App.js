@@ -1,5 +1,5 @@
 import React from "react";
-import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from "@apollo/client";
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import { useWindowWidth } from "./helpers/getWindowWidth";
 import Router from "./routes/appRoutes";
 

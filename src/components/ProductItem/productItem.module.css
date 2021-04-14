@@ -65,11 +65,11 @@
   display: flex;
   width: 50%;
 }
-/* .color > p,
+.color > p,
 .size > p {
   font-size: 13px;
 }
-.colorOptions,
+/* .colorOptions,
 .sizeOptions {
   border: none;
   outline: none;

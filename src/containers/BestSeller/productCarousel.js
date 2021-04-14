@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 import { useQuery } from "@apollo/client";
@@ -7,17 +7,9 @@ import { GET_PRODUCTS_DATA } from "../../GraphQl/queries";
 
 import "./productCarousel.css";
 
-function rating(n) {
-  let ratingArray = [];
-  for (let i = 1; i <= 5; i++) {
-    ratingArray.push(i <= n);
-  }
-  return ratingArray;
-}
-
 const ProductCarousel = () => {
   const history = useHistory();
-  const { loading, error, data } = useQuery(GET_PRODUCTS_DATA, {
+  const { data } = useQuery(GET_PRODUCTS_DATA, {
     variables: { categoryId: "602e537c205367233c805511" },
   });
 
@@ -69,10 +61,3 @@ const ProductCarousel = () => {
 };
 
 export default ProductCarousel;
-{
-  /* <div className="product-rating">
-  {rating(el.rating).map((item, idx) => {
-    return <img key={idx} src={item ? starGold : starWhite} alt="star" />;
-  })}
-</div>; */
-}

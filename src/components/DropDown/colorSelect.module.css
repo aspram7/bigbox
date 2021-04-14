@@ -1,0 +1,66 @@
+.select {
+  position: relative;
+  width: 144px;
+  background-color: #ffffff;
+  margin: 0 20px;
+}
+.header {
+  font-size: 12px;
+  color: #4b4b4b;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.body {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 0;
+  overflow-y: auto;
+  animation: selectDropDown 0.1s linear forwards;
+  color: #444444;
+  font-size: 13px;
+  background: #ffffff;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  padding: 8px 0 8px 11px;
+}
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: #888888;
+  border-radius: 4px;
+}
+@keyframes selectDropDown {
+  to {
+    max-height: 1000%;
+  }
+}
+.item {
+  padding: 8px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+.arrowDown,
+.arrowUp {
+  font-family: "icomoon";
+  font-size: 8px;
+  color: #000000;
+  margin-left: 20px;
+}
+.arrowDown::before {
+  content: "\e911";
+}
+.arrowUp::before {
+  content: "\e912";
+}
+.item > span {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  border-radius: 50%;
+  margin-right: 13px;
+}

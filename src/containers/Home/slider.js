@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { CarouselProvider, Slider, Slide, DotGroup } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
 import { useQuery } from "@apollo/client";
 import { GET_SLIDER_IMAGES } from "../../GraphQl/queries";
 import Button from "../../components/Button";
-import { useSizes } from "../../helpers/useSizes";
 import ImageProduct from "../../components/Image";
 
 import classes from "./slider.module.css";
@@ -21,6 +20,7 @@ const SliderMain = ({ className }) => {
   };
 
   if (error) return <h1>error</h1>;
+  if (loading) return <h1>loading</h1>;
 
   return (
     <>

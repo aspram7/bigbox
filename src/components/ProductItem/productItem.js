@@ -2,7 +2,13 @@ import { useEffect, useState } from "react";
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { useParams } from "react-router";
 import StarRatings from "react-star-ratings";
-import { GET_PRODUCT_DATA, GET_PRODUCT_REVIEWS, CREATE_CART, ADD_ITEM_CART } from "../../GraphQl/queries";
+import {
+  GET_PRODUCT_DATA,
+  GET_PRODUCT_REVIEWS,
+  CREATE_CART,
+  ADD_ITEM_TO_CART,
+  CART_QUERY,
+} from "../../GraphQl/queries";
 import Layout from "../Layout";
 import Button from "../Button";
 import { ColorSelect } from "../DropDown";
@@ -14,7 +20,12 @@ import classes from "./productItem.module.css";
 
 const ProductItem = () => {
   const [quantity, setQuantity] = useState(1);
-  const [color, setColor] = useState("red");
+  const [color, setColor] = useState({
+    id: 2,
+    name: "Կարմիր",
+    value: "red",
+    color: "#FF4D41",
+  });
   const [size, setSize] = useState("chose");
   const [aboutProduct, setAboutProduct] = useState(0);
   const [review, setReview] = useState({
@@ -24,7 +35,7 @@ const ProductItem = () => {
   });
 
   const { urlKey } = useParams();
-  const { loading, error, data } = useQuery(GET_PRODUCT_DATA, {
+  const { data } = useQuery(GET_PRODUCT_DATA, {
     variables: { route: urlKey },
   });
 
@@ -33,7 +44,7 @@ const ProductItem = () => {
   });
 
   useEffect(() => {
-    if(data){
+    if (data) {
       getProductReviews();
     }
   }, [data]);
@@ -59,42 +70,45 @@ const ProductItem = () => {
     });
   };
 
-  const [setCreateCart, { data: createCardId }] = useMutation(CREATE_CART);
-  // const { data: cartData } = useQuery(CART_QUERY, {
-  //   variables: { cartId: createCardId && createCardId.createCart },
-  // });
-  const [setItemCart, { data: addItemToCart }] = useMutation(ADD_ITEM_CART);
+  const [setCreateCart, { data: createCartId }] = useMutation(CREATE_CART);
+  const [getCartData, { data: cartData }] = useLazyQuery(CART_QUERY, {
+    variables: { cartId: createCartId && createCartId.createCart },
+  });
+  const [setItemToCart, { data: addItemToCart }] = useMutation(ADD_ITEM_TO_CART);
 
-  console.log(addItemToCart, 555555555)
+  console.log(cartData, 555555555);
 
   const handleCart = () => {
-      if (localStorage.getItem('id')) {
-        return
-      } else {
-      //   new Promise((resolve) => {
-      //     resolve(setCreateCart());
-      // }).then(res => {
-      //     localStorage.setItem("id", res.data.createCart)
-      // })
+    if (localStorage.getItem("id")) {
+      setItemToCart({
+        variables: {
+          cartId: createCartId.createCart,
+          productId: data.resolveUnknownRoute.id,
+          quantity: quantity,
+        },
+      });
+    } else {
       (async () => {
         let res = await setCreateCart();
         await localStorage.setItem("id", res.data.createCart);
-        await setItemCart({
-          variables: { cartId : res.data.createCart},
+        await setItemToCart({
+          variables: { cartId: res.data.createCart },
         });
+        getCartData();
       })();
     }
-  }
+  };
 
   return (
     <Layout>
       <div className={classes.section}>
         <div className={classes.sectionTop}>
           <>
-            {data &&
+            {/* {data &&
               data.resolveUnknownRoute.item.images.map((el, idx) => {
                 return <ProductItemCarousel key={idx} />;
-              })}
+              })} */}
+            <ProductItemCarousel />
           </>
           <div>
             <div>
@@ -130,7 +144,42 @@ const ProductItem = () => {
             <div className={classes.style}>
               <div className={classes.color}>
                 <p>ԳՈՒՅՆ։</p>
-                <ColorSelect colorName="color" value="red" onChange={() => {}} children="red" />
+                <ColorSelect
+                  value={color}
+                  onChange={(item) => setColor(item)}
+                  options={[
+                    {
+                      id: 0,
+                      name: "Կապույտ",
+                      value: "blue",
+                      color: "#33C0CB",
+                    },
+                    {
+                      id: 1,
+                      name: "Կանաչ",
+                      value: "green",
+                      color: "#6FB237",
+                    },
+                    {
+                      id: 2,
+                      name: "Կարմիր",
+                      value: "red",
+                      color: "#FF4D41",
+                    },
+                    {
+                      id: 3,
+                      name: "Գազարագույն",
+                      value: "orange",
+                      color: "#FEBD59",
+                    },
+                    {
+                      id: 4,
+                      name: "Վարդագույն",
+                      value: "rose",
+                      color: "#FFC2CB",
+                    },
+                  ]}
+                />
               </div>
               <div className={classes.size}>
                 <p>ՉԱՓ։</p>
@@ -163,7 +212,9 @@ const ProductItem = () => {
                 <span className={classes.arrowTop} onClick={() => changeQuantity(1)}></span>
                 <span className={classes.arrowDown} onClick={() => changeQuantity(-1)}></span>
               </div>
-              <Button classes={{ button: classes.productItemButton }} onClick={handleCart}>ԱՎԵԼԱՑՆԵԼ ԶԱՄԲՅՈՒՂ</Button>
+              <Button classes={{ button: classes.productItemButton }} onClick={handleCart}>
+                ԱՎԵԼԱՑՆԵԼ ԶԱՄԲՅՈՒՂ
+              </Button>
             </div>
             <div className={classes.code}>ԿՈԴ: {data && data.resolveUnknownRoute.id}</div>
             <div className={classes.socialMedia}>

@@ -97,43 +97,39 @@ export const CREATE_CART = gql`
   }
 `;
 
-export const ADD_ITEM_CART = gql`
-  mutation AddItemToCart($cartId: String) {
-    addItemToCart(cartId: $cartId){
+export const ADD_ITEM_TO_CART = gql`
+  mutation AddItemToCart($cartId: String, $productId: String!, $quantity: Int) {
+    addItemToCart(cartId: $cartId, itemData: { productId: $productId, quantity: $quantity }) {
       id
+      shopId
+      totalQty
     }
   }
 `;
 
-// export const CART_QUERY = gql`
-//   query CartQuery($cartId: String!) {
-//     cart(cartId: $cartId) {
-//       id
-//       userId
-//       shopId
-//       totalQty
-//       subtotal
-//       shippingTotal
-//       discountTotal
-//       couponCode
-//       grandTotal
-//       items {
-//         id
-//         productId
-//         quantity
-//         name
-//         thumbnail
-//         price
-//         discount
-//         discountType
-//         discountedPrice
-//       }
-//       shippingAddress
-//       billingAddress
-//       shippingMethod
-//       paymentMethod
-//       email
-//       phone
-//     }
-//   }
-// `;
+export const CART_QUERY = gql`
+  query CartQuery($cartId: String!) {
+    cart(cartId: $cartId) {
+      id
+      userId
+      shopId
+      totalQty
+      subtotal
+      shippingTotal
+      discountTotal
+      couponCode
+      grandTotal
+      items {
+        id
+        productId
+        quantity
+        name
+        thumbnail
+        price
+        discount
+        discountType
+        discountedPrice
+      }
+    }
+  }
+`;
