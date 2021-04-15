@@ -40,7 +40,6 @@ const ProductItemCarousel = () => {
       <Slider>
         {data &&
           data.resolveUnknownRoute.item.images.map((el, idx) => {
-            console.log(activeImage);
             return (
               <Slide index={idx} key={idx}>
                 <img src={activeImage} alt="" />

@@ -98,11 +98,9 @@ export const CREATE_CART = gql`
 `;
 
 export const ADD_ITEM_TO_CART = gql`
-  mutation AddItemToCart($cartId: String, $productId: String!, $quantity: Int) {
-    addItemToCart(cartId: $cartId, itemData: { productId: $productId, quantity: $quantity }) {
+  mutation AddItemToCart($cartId: String, $itemData: ConfigurableCartItemInputData) {
+    addItemToCart(cartId: $cartId, itemData: $itemData) {
       id
-      shopId
-      totalQty
     }
   }
 `;
@@ -111,14 +109,6 @@ export const CART_QUERY = gql`
   query CartQuery($cartId: String!) {
     cart(cartId: $cartId) {
       id
-      userId
-      shopId
-      totalQty
-      subtotal
-      shippingTotal
-      discountTotal
-      couponCode
-      grandTotal
       items {
         id
         productId
@@ -127,8 +117,6 @@ export const CART_QUERY = gql`
         thumbnail
         price
         discount
-        discountType
-        discountedPrice
       }
     }
   }

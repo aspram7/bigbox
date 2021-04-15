@@ -2,6 +2,8 @@ import React from "react";
 import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import { useWindowWidth } from "./helpers/getWindowWidth";
 import Router from "./routes/appRoutes";
+import { Provider } from "react-redux";
+import store from "./store/store"
 
 import "./App.css";
 
@@ -20,11 +22,13 @@ function App() {
   const { width } = useWindowWidth();
   return (
     <div className="App">
+      <Provider store={store}>
       <WidthContext.Provider value={width}>
         <ApolloProvider client={client}>
           <Router />
         </ApolloProvider>
       </WidthContext.Provider>
+      </Provider>
     </div>
   );
 }

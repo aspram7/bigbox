@@ -71,31 +71,30 @@ const ProductItem = () => {
   };
 
   const [setCreateCart, { data: createCartId }] = useMutation(CREATE_CART);
-  const [getCartData, { data: cartData }] = useLazyQuery(CART_QUERY, {
-    variables: { cartId: createCartId && createCartId.createCart },
-  });
-  const [setItemToCart, { data: addItemToCart }] = useMutation(ADD_ITEM_TO_CART);
+  
+  const [setItemToCart, { data: addItemToCart }] = useMutation(ADD_ITEM_TO_CART,
+    {variables: {
+      cartId: localStorage.getItem("id"),
+      itemData: { productId: data && data.resolveUnknownRoute.id,
+      quantity: quantity,}
+    }});
 
-  console.log(cartData, 555555555);
+    const [getCartData, { data: cartData }] = useLazyQuery(CART_QUERY, {
+      variables: { cartId: addItemToCart && addItemToCart.addItemToCart.id },
+    });
 
-  const handleCart = () => {
+    console.log(cartData, 99)
+
+  const handleCart = async () => {
     if (localStorage.getItem("id")) {
-      setItemToCart({
-        variables: {
-          cartId: createCartId.createCart,
-          productId: data.resolveUnknownRoute.id,
-          quantity: quantity,
-        },
-      });
+      await setItemToCart();
+      await getCartData();
     } else {
-      (async () => {
         let res = await setCreateCart();
         await localStorage.setItem("id", res.data.createCart);
-        await setItemToCart({
-          variables: { cartId: res.data.createCart },
-        });
-        getCartData();
-      })();
+        await setItemToCart();
+        await getCartData();
+      
     }
   };
 
