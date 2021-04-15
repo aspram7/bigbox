@@ -4,6 +4,7 @@ import Menu from "../Menu";
 import { WidthContext } from "../../App";
 import bigboxLogoHeader from "../../assets/svg/bigbox-logo-header.svg";
 import hamburgerMenu from "../../assets/svg/hamburger-menu.svg";
+import MiniCart from "../../containers/MiniCart";
 
 import classes from "./header.module.css";
 
@@ -71,11 +72,12 @@ const Header = () => {
                 </p>
               </div>
             </div>
-            <div>
+            <div className={classes.cart}>
               <span className={classes.bag}>
                 <div>2</div>
               </span>
               <div>Զամբյուղ</div>
+              <MiniCart />
             </div>
           </div>
         </div>

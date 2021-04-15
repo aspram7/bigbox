@@ -5,6 +5,7 @@ import BestSeller from "../BestSeller";
 import Gift from "../Gift";
 import NewProducts from "../NewProducts";
 import Service from "../Service";
+import MiniCart from "../MiniCart";
 
 const Sections = () => {
   return (
@@ -15,6 +16,7 @@ const Sections = () => {
         <Gift />
         <NewProducts />
         <Service />
+        <MiniCart />
       </Layout>
     </div>
   );

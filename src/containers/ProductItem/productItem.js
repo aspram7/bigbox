@@ -1,19 +1,15 @@
 import { useEffect, useState } from "react";
-import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
+import { useQuery, useLazyQuery } from "@apollo/client";
 import { useParams } from "react-router";
 import StarRatings from "react-star-ratings";
-import {
-  GET_PRODUCT_DATA,
-  GET_PRODUCT_REVIEWS,
-  CREATE_CART,
-  ADD_ITEM_TO_CART,
-  CART_QUERY,
-} from "../../GraphQl/queries";
-import Layout from "../Layout";
-import Button from "../Button";
-import { ColorSelect } from "../DropDown";
+import { useDispatch } from "react-redux";
+import { GET_PRODUCT_DATA, GET_PRODUCT_REVIEWS } from "../../GraphQl/queries";
+import Layout from "../../components/Layout";
+import Button from "../../components/Button";
+import { ColorSelect } from "../../components/DropDown";
 import ProductItemCarousel from "./productItemCarousel";
-import ReviewForm from "../ReviewForm";
+import ReviewForm from "../../components/ReviewForm";
+import { useQueries } from "../../api/service";
 
 import inStock from "../../assets/svg/in-stock.svg";
 import classes from "./productItem.module.css";
@@ -70,45 +66,49 @@ const ProductItem = () => {
     });
   };
 
-  const [setCreateCart, { data: createCartId }] = useMutation(CREATE_CART);
-  
-  const [setItemToCart, { data: addItemToCart }] = useMutation(ADD_ITEM_TO_CART,
-    {variables: {
-      cartId: localStorage.getItem("id"),
-      itemData: { productId: data && data.resolveUnknownRoute.id,
-      quantity: quantity,}
-    }});
+  const { setCreateCart, setItemToCart, getCartData, cartData } = useQueries();
 
-    const [getCartData, { data: cartData }] = useLazyQuery(CART_QUERY, {
-      variables: { cartId: addItemToCart && addItemToCart.addItemToCart.id },
-    });
-
-    console.log(cartData, 99)
-
-  const handleCart = async () => {
+  const addDataToCart = async () => {
     if (localStorage.getItem("id")) {
-      await setItemToCart();
+      await setItemToCart({
+        variables: {
+          cartId: localStorage.getItem("id"),
+          itemData: { productId: data && data.resolveUnknownRoute.id, quantity: quantity },
+        },
+      });
       await getCartData();
+      await dispatch({
+        type: "CART_DATA",
+        payload: {
+          cartData: cartData && cartData.cart.items,
+        },
+      });
     } else {
-        let res = await setCreateCart();
-        await localStorage.setItem("id", res.data.createCart);
-        await setItemToCart();
-        await getCartData();
-      
+      let res = await setCreateCart();
+      await localStorage.setItem("id", res.data.createCart);
+      await setItemToCart({
+        variables: {
+          cartId: localStorage.getItem("id"),
+          itemData: { productId: data && data.resolveUnknownRoute.id, quantity: quantity },
+        },
+      });
+      await getCartData();
+      await dispatch({
+        type: "CART_DATA",
+        payload: {
+          cartData: cartData && cartData.cart.items,
+        },
+      });
     }
   };
+
+  const dispatch = useDispatch();
 
   return (
     <Layout>
       <div className={classes.section}>
         <div className={classes.sectionTop}>
-          <>
-            {/* {data &&
-              data.resolveUnknownRoute.item.images.map((el, idx) => {
-                return <ProductItemCarousel key={idx} />;
-              })} */}
-            <ProductItemCarousel />
-          </>
+          <>{data && <ProductItemCarousel data={data} />}</>
           <div>
             <div>
               {data && data.resolveUnknownRoute.item ? (
@@ -211,7 +211,7 @@ const ProductItem = () => {
                 <span className={classes.arrowTop} onClick={() => changeQuantity(1)}></span>
                 <span className={classes.arrowDown} onClick={() => changeQuantity(-1)}></span>
               </div>
-              <Button classes={{ button: classes.productItemButton }} onClick={handleCart}>
+              <Button classes={{ button: classes.productItemButton }} onClick={addDataToCart}>
                 ԱՎԵԼԱՑՆԵԼ ԶԱՄԲՅՈՒՂ
               </Button>
             </div>

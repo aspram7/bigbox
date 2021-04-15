@@ -1,25 +1,26 @@
 import { createStore } from "redux";
 
 const initialState = {
-    name: "Janet",
-    count: 0
-}
+  setReduxCartData: [],
+};
 
 const reducer = (state = initialState, action) => {
-    if (action.type === "CHANGE_COUNT"){
-        return {
-            ...state,
-            count: action.payload
-        }
-    }
-    if (action.type === "CHANGE_NAME"){
-        return {
-            ...state,
-            name: action.payload
-        }
-    }
-    return state;
-}
+  switch (action.type) {
+    case "CART_DATA":
+      return {
+        ...state,
+        setReduxCartData: action.payload.cartData,
+      };
+    case "REMOVE_ITEM_FROM_CART":
+      return {
+        ...state,
+        setReduxCartData: action.payload.cartData,
+      };
+
+    default:
+      return state;
+  }
+};
 
 const store = createStore(reducer);
 

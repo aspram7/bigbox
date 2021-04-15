@@ -1,21 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
-import { useQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import { GET_PRODUCTS_DATA } from "../../GraphQl/queries";
 
 import "./productCarousel.css";
 
 const ProductCarousel = () => {
   const history = useHistory();
-  const { data } = useQuery(GET_PRODUCTS_DATA, {
+  const [getProduct, { data }] = useLazyQuery(GET_PRODUCTS_DATA, {
     variables: { categoryId: "602e537c205367233c805511" },
   });
 
   const handleProduct = (key) => {
     history.push(`/product/${key}`);
   };
+
+  useEffect(() => {
+    getProduct();
+  }, []);
 
   return (
     <CarouselProvider

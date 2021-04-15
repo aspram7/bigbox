@@ -1,0 +1,101 @@
+.section {
+  padding: 21px 17px 16px;
+  background: #ffffff;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 3px;
+  margin-bottom: 100px;
+  width: 372px;
+  position: absolute;
+  z-index: 10;
+  top: 100%;
+  right: 0;
+  text-align: left;
+  max-height: 0;
+  overflow-y: auto;
+  animation: miniCart 0.2s linear forwards;
+  display: none;
+}
+@keyframes miniCart {
+  to {
+    max-height: 2000%;
+  }
+}
+.content {
+  display: flex;
+  margin-bottom: 8px;
+}
+.content > img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  cursor: pointer;
+}
+.text {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-left: 11px;
+}
+.text p {
+  font-size: 13px;
+}
+.name {
+  margin-top: 16px;
+}
+.price {
+  color: #444444;
+  font-weight: 700;
+  margin: 11px 0 20px;
+}
+.quantity {
+  color: #444444;
+}
+.trash {
+  font-family: "icomoon";
+  font-size: 16px;
+  color: #bbbbbb;
+  display: flex;
+  align-items: flex-end;
+  cursor: pointer;
+  transition: 0.3s linear;
+}
+.trash:hover {
+  color: #ff4d41;
+}
+.trash::before {
+  content: "\e919";
+}
+.total {
+  display: flex;
+  justify-content: space-between;
+  margin: 183px 0 18px;
+}
+.total > p {
+  font-weight: 700;
+  font-size: 13px;
+}
+.total > p:last-of-type {
+  color: #444444;
+  font-size: 15px;
+}
+.miniCartButton {
+  display: flex;
+  justify-content: space-between;
+}
+.miniCartButton > button {
+  font-size: 11px;
+  padding: 11px 17px;
+  color: #33c0cb;
+  border-color: #33c0cb;
+  transition: 0.3s linear;
+}
+.miniCartButton > button:hover {
+  color: #ffffff;
+  border-color: #000000;
+  background-color: #000000;
+}
+.miniCartButton > button:focus {
+  color: #ffffff;
+  border-color: #33c0cb;
+  background-color: #33c0cb;
+}

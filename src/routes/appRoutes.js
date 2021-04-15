@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import BestSeller from "../containers/BestSeller";
 import Header from "../components/Header";
 import Sections from "../containers/Sections";
-import ProductItem from "../components/ProductItem/productItem";
+import ProductItem from "../containers/ProductItem/productItem";
 
 const AppRoutes = () => {
   return (

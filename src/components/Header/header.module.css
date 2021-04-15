@@ -85,6 +85,7 @@
 }
 .bag {
   position: relative;
+  cursor: pointer;
 }
 .bag > div {
   position: absolute;
@@ -98,6 +99,12 @@
   text-align: center;
   line-height: 24px;
   font-size: 12px;
+}
+.cart {
+  position: relative;
+}
+.cart:hover :global(.mini-cart) {
+  display: block;
 }
 
 /*mobile*/

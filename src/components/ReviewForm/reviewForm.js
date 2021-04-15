@@ -28,7 +28,7 @@ const ReviewForm = ({ rating, productId, handleReview }) => {
       formik.resetForm();
     },
   });
-  const { loading, error, data, refetch } = useQuery(GET_PRODUCT_REVIEWS, {
+  const { refetch } = useQuery(GET_PRODUCT_REVIEWS, {
     variables: { productId: productId },
   });
 

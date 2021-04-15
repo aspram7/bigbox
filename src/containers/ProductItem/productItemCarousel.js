@@ -1,18 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext, Dot } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
-import { useQuery } from "@apollo/client";
-import { useParams } from "react-router";
-import { GET_PRODUCT_DATA } from "../../GraphQl/queries";
 
 import "./productItemCarousel.css";
 
-const ProductItemCarousel = () => {
-  const { urlKey } = useParams();
-  const { data } = useQuery(GET_PRODUCT_DATA, {
-    variables: { route: urlKey },
-  });
-
+const ProductItemCarousel = ({ data }) => {
   const [activeImage, setActiveImage] = useState(
     `https://vmall-api.yereone.com/media/6027acbe5fc2b4627256d612/${
       data && data.resolveUnknownRoute.item.images[0].path
@@ -38,14 +30,9 @@ const ProductItemCarousel = () => {
       className="product-item-carousel"
     >
       <Slider>
-        {data &&
-          data.resolveUnknownRoute.item.images.map((el, idx) => {
-            return (
-              <Slide index={idx} key={idx}>
-                <img src={activeImage} alt="" />
-              </Slide>
-            );
-          })}
+        <Slide index={0}>
+          <img src={activeImage} alt="" />
+        </Slide>
       </Slider>
       <div className="product-item-arrow-button">
         <ButtonBack className="product-item-button-back"></ButtonBack>

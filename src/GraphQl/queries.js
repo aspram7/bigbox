@@ -111,13 +111,17 @@ export const CART_QUERY = gql`
       id
       items {
         id
-        productId
         quantity
         name
         thumbnail
         price
-        discount
       }
     }
+  }
+`;
+
+export const REMOVE_ITEM_FROM_CART = gql`
+  mutation RemoveItemFromCart($cartId: String, $itemId: String) {
+    removeItemFromCart(cartId: $cartId, itemId: $itemId)
   }
 `;
