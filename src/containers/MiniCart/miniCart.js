@@ -8,25 +8,22 @@ import classes from "./miniCart.module.css";
 const MiniCart = () => {
   const { setReduxCartData } = useSelector((state) => state);
   const dispatch = useDispatch();
-  console.log(setReduxCartData);
 
-  const { removeItemFromCart } = useQueries();
+  const { removeItemFromCart, getCartData } = useQueries();
 
-  const removeItem = (id) => {
-    removeItemFromCart({
+  const removeItem = async (id) => {
+    await removeItemFromCart({
       variables: {
         cartId: localStorage.getItem("id"),
-        itemId: setReduxCartData.id,
+        itemId: id,
       },
     });
-    dispatch({
-      type: "REMOVE_ITEM_FROM_CART",
-      payload: {
-        cartData: setReduxCartData.filter((el) => {
-          return el.id !== id;
-        }),
-      },
-    });
+    const res = await getCartData({variables: {cartId: localStorage.getItem("id")}});
+    console.log(res,111)
+    // dispatch({
+    //   type: "REMOVE_ITEM_FROM_CART",
+    //   payload: res,
+    // });
   };
 
   return (

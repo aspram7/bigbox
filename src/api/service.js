@@ -4,7 +4,7 @@ import { CREATE_CART, ADD_ITEM_TO_CART, CART_QUERY } from "../GraphQl/queries";
 export const useQueries = () => {
   const [setCreateCart, { data: createCartId }] = useMutation(CREATE_CART);
 
-  const [setItemToCart, { data: addItemToCart }] = useMutation(ADD_ITEM_TO_CART, {
+  const [setItemToCart, { data: cartItemData }] = useMutation(ADD_ITEM_TO_CART, {
     variables: {
       cartId: localStorage.getItem("id"),
     },
@@ -21,7 +21,7 @@ export const useQueries = () => {
     setCreateCart,
     createCartId,
     setItemToCart,
-    addItemToCart,
+    cartItemData,
     getCartData,
     cartData,
     removeItemFromCart,

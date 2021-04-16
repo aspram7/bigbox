@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useQuery, useLazyQuery } from "@apollo/client";
 import { useParams } from "react-router";
 import StarRatings from "react-star-ratings";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { GET_PRODUCT_DATA, GET_PRODUCT_REVIEWS } from "../../GraphQl/queries";
 import Layout from "../../components/Layout";
 import Button from "../../components/Button";
@@ -66,44 +66,38 @@ const ProductItem = () => {
     });
   };
 
-  const { setCreateCart, setItemToCart, getCartData, cartData } = useQueries();
-
-  const addDataToCart = async () => {
-    if (localStorage.getItem("id")) {
-      await setItemToCart({
-        variables: {
-          cartId: localStorage.getItem("id"),
-          itemData: { productId: data && data.resolveUnknownRoute.id, quantity: quantity },
-        },
-      });
-      await getCartData();
-      await dispatch({
-        type: "CART_DATA",
-        payload: {
-          cartData: cartData && cartData.cart.items,
-        },
-      });
-    } else {
+  const { setCreateCart, setItemToCart, getCartData, cartData, cartItemData } = useQueries();
+  
+  const addItemToCart = async () => {
+    if (!localStorage.getItem("id")) {
       let res = await setCreateCart();
       await localStorage.setItem("id", res.data.createCart);
-      await setItemToCart({
-        variables: {
-          cartId: localStorage.getItem("id"),
-          itemData: { productId: data && data.resolveUnknownRoute.id, quantity: quantity },
-        },
-      });
-      await getCartData();
       await dispatch({
-        type: "CART_DATA",
+        type: "ADD_ID_TO_REDUX",
         payload: {
-          cartData: cartData && cartData.cart.items,
+          cartID: localStorage.getItem("id"),
         },
       });
     }
+    await setItemToCart({
+      variables: {
+        cartId: localStorage.getItem("id"),
+        itemData: { productId: data && data.resolveUnknownRoute.id, quantity: quantity },
+      },
+    });
+    await getCartData({variables: {cartId: localStorage.getItem("id")}});
+    await dispatch({
+      type: "CART_DATA",
+      payload: {
+        cartData: cartData && cartData.cart.items,
+      },
+    });
   };
 
-  const dispatch = useDispatch();
+  console.log(cartData,77)
 
+  const dispatch = useDispatch();
+  
   return (
     <Layout>
       <div className={classes.section}>
@@ -211,7 +205,7 @@ const ProductItem = () => {
                 <span className={classes.arrowTop} onClick={() => changeQuantity(1)}></span>
                 <span className={classes.arrowDown} onClick={() => changeQuantity(-1)}></span>
               </div>
-              <Button classes={{ button: classes.productItemButton }} onClick={addDataToCart}>
+              <Button classes={{ button: classes.productItemButton }} onClick={addItemToCart}>
                 ԱՎԵԼԱՑՆԵԼ ԶԱՄԲՅՈՒՂ
               </Button>
             </div>

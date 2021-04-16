@@ -101,6 +101,13 @@ export const ADD_ITEM_TO_CART = gql`
   mutation AddItemToCart($cartId: String, $itemData: ConfigurableCartItemInputData) {
     addItemToCart(cartId: $cartId, itemData: $itemData) {
       id
+      items {
+        id
+        quantity
+        name
+        thumbnail
+        price
+      }
     }
   }
 `;
