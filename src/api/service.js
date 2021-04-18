@@ -15,8 +15,6 @@ export const useQueries = () => {
     fetchPolicy: "no-cache",
   });
 
-  const [removeItemFromCart] = useLazyQuery(CART_QUERY);
-
   return {
     setCreateCart,
     createCartId,
@@ -24,6 +22,5 @@ export const useQueries = () => {
     cartItemData,
     getCartData,
     cartData,
-    removeItemFromCart,
   };
 };

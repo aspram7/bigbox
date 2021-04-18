@@ -1,4 +1,7 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
+import { useQuery } from "@apollo/client";
+import { useDispatch } from "react-redux";
+import { CART_QUERY } from "../../GraphQl/queries";
 import Layout from "../Layout";
 import Menu from "../Menu";
 import { WidthContext } from "../../App";
@@ -10,6 +13,22 @@ import classes from "./header.module.css";
 
 const Header = () => {
   const width = useContext(WidthContext);
+  const dispatch = useDispatch();
+  const { loading, data: cartData } = useQuery(CART_QUERY, {
+    variables: { cartId: localStorage.getItem("id") },
+    fetchPolicy: "no-cache",
+  });
+
+  useEffect(() => {
+    if (localStorage.getItem("id") && loading === false) {
+      dispatch({
+        type: "CART_DATA",
+        payload: {
+          cartData: cartData && cartData.cart.items,
+        },
+      });
+    }
+  }, [loading]);
 
   if (width < 992) {
     return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloProvider, ApolloClient, InMemoryCache, useQuery } from "@apollo/client";
 import { useWindowWidth } from "./helpers/getWindowWidth";
 import Router from "./routes/appRoutes";
 import { Provider } from "react-redux";
@@ -20,6 +20,7 @@ export const client = new ApolloClient({
 
 function App() {
   const { width } = useWindowWidth();
+
   return (
     <div className="App">
       <Provider store={store}>

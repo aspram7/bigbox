@@ -1,0 +1,5 @@
+export const types = {
+  ADD_ID_TO_REDUX: "ADD_ID_TO_REDUX",
+  CART_DATA: "CART_DATA",
+  REMOVE_ITEM_FROM_CART: "REMOVE_ITEM_FROM_CART",
+};

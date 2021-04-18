@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
-import { useQuery, useLazyQuery } from "@apollo/client";
+import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import { useParams } from "react-router";
 import StarRatings from "react-star-ratings";
-import { useSelector, useDispatch } from "react-redux";
-import { GET_PRODUCT_DATA, GET_PRODUCT_REVIEWS } from "../../GraphQl/queries";
+import { useDispatch } from "react-redux";
+import { GET_PRODUCT_DATA, GET_PRODUCT_REVIEWS, CREATE_CART } from "../../GraphQl/queries";
 import Layout from "../../components/Layout";
 import Button from "../../components/Button";
 import { ColorSelect } from "../../components/DropDown";
 import ProductItemCarousel from "./productItemCarousel";
 import ReviewForm from "../../components/ReviewForm";
-import { useQueries } from "../../api/service";
+import { createCart, getCartData, setItemToCart } from "../../store/action";
 
 import inStock from "../../assets/svg/in-stock.svg";
 import classes from "./productItem.module.css";
 
 const ProductItem = () => {
+  const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState({
     id: 2,
@@ -31,19 +32,19 @@ const ProductItem = () => {
   });
 
   const { urlKey } = useParams();
-  const { data } = useQuery(GET_PRODUCT_DATA, {
+  const { data: prductData } = useQuery(GET_PRODUCT_DATA, {
     variables: { route: urlKey },
   });
 
   const [getProductReviews, { data: dataReview }] = useLazyQuery(GET_PRODUCT_REVIEWS, {
-    variables: { productId: data && data.resolveUnknownRoute.id },
+    variables: { productId: prductData && prductData.resolveUnknownRoute.id },
   });
 
   useEffect(() => {
-    if (data) {
+    if (prductData) {
       getProductReviews();
     }
-  }, [data]);
+  }, [prductData]);
 
   const changeQuantity = (n) => {
     if (quantity <= 1 && n === -1) return;
@@ -66,46 +67,24 @@ const ProductItem = () => {
     });
   };
 
-  const { setCreateCart, setItemToCart, getCartData, cartData, cartItemData } = useQueries();
-  
+  // const [setCreateCart, { data: createCartId }] = useMutation(CREATE_CART);
+
   const addItemToCart = async () => {
     if (!localStorage.getItem("id")) {
-      let res = await setCreateCart();
-      await localStorage.setItem("id", res.data.createCart);
-      await dispatch({
-        type: "ADD_ID_TO_REDUX",
-        payload: {
-          cartID: localStorage.getItem("id"),
-        },
-      });
+      await dispatch(createCart());
     }
-    await setItemToCart({
-      variables: {
-        cartId: localStorage.getItem("id"),
-        itemData: { productId: data && data.resolveUnknownRoute.id, quantity: quantity },
-      },
-    });
-    await getCartData({variables: {cartId: localStorage.getItem("id")}});
-    await dispatch({
-      type: "CART_DATA",
-      payload: {
-        cartData: cartData && cartData.cart.items,
-      },
-    });
+    dispatch(getCartData());
+    dispatch(setItemToCart(prductData.resolveUnknownRoute.id, quantity));
   };
 
-  console.log(cartData,77)
-
-  const dispatch = useDispatch();
-  
   return (
     <Layout>
       <div className={classes.section}>
         <div className={classes.sectionTop}>
-          <>{data && <ProductItemCarousel data={data} />}</>
+          <>{prductData && <ProductItemCarousel data={prductData} />}</>
           <div>
             <div>
-              {data && data.resolveUnknownRoute.item ? (
+              {prductData && prductData.resolveUnknownRoute.item ? (
                 <div className={classes.exist}>
                   <img src={inStock} alt="In Stock" />
                   <p>Առկա է</p>
@@ -126,8 +105,12 @@ const ProductItem = () => {
               </div>
               <p>Գրել կարծիք</p>
             </div>
-            <h6 className={classes.title}>{data && data.resolveUnknownRoute.item.name}</h6>
-            <div className={classes.price}>{data && data.resolveUnknownRoute.item.price}</div>
+            <h6 className={classes.title}>
+              {prductData && prductData.resolveUnknownRoute.item.name}
+            </h6>
+            <div className={classes.price}>
+              {prductData && prductData.resolveUnknownRoute.item.price}
+            </div>
             <div className={classes.text}>
               Հայտնի է, որ ընթերցողը, կարդալով հասկանալի տեքստ, չի կարողանա կենտրոնանալ տեքստի
               ձևավորման վրա: Lorem Ipsum օգտագործելը բացատրվում է նրանով, որ այն բաշխում է բառերը
@@ -209,7 +192,9 @@ const ProductItem = () => {
                 ԱՎԵԼԱՑՆԵԼ ԶԱՄԲՅՈՒՂ
               </Button>
             </div>
-            <div className={classes.code}>ԿՈԴ: {data && data.resolveUnknownRoute.id}</div>
+            <div className={classes.code}>
+              ԿՈԴ: {prductData && prductData.resolveUnknownRoute.id}
+            </div>
             <div className={classes.socialMedia}>
               <span className={classes.facebook}></span>
               <span className={classes.instagram}></span>
@@ -322,7 +307,7 @@ const ProductItem = () => {
                 </div>
                 <ReviewForm
                   rating={review.rating}
-                  productId={data && data.resolveUnknownRoute.id}
+                  productId={prductData && prductData.resolveUnknownRoute.id}
                   handleReview={handleReview}
                 />
               </div>

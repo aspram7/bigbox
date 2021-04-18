@@ -1,25 +1,34 @@
 import React from "react";
-import Button from "../../components/Button";
-import { useQueries } from "../../api/service";
 import { useSelector, useDispatch } from "react-redux";
+import { useQuery, useMutation } from "@apollo/client";
+import { CART_QUERY, REMOVE_ITEM_FROM_CART } from "../../GraphQl/queries";
+import Button from "../../components/Button";
+import { getCartData, removeItemFromCart } from "../../store/action";
 
 import classes from "./miniCart.module.css";
 
 const MiniCart = () => {
-  const { setReduxCartData } = useSelector((state) => state);
   const dispatch = useDispatch();
+  const { setReduxCartData } = useSelector((state) => state);
 
-  const { removeItemFromCart, getCartData } = useQueries();
+  // const [removeItemFromCart] = useMutation(REMOVE_ITEM_FROM_CART);
+
+  // const { data: cartData } = useQuery(CART_QUERY, {
+  //   variables: { cartId: localStorage.getItem("id") },
+  //   fetchPolicy: "no-cache",
+  // });
 
   const removeItem = async (id) => {
-    await removeItemFromCart({
-      variables: {
-        cartId: localStorage.getItem("id"),
-        itemId: id,
-      },
-    });
-    const res = await getCartData({variables: {cartId: localStorage.getItem("id")}});
-    console.log(res,111)
+    dispatch(removeItemFromCart(id));
+
+    // await removeItemFromCart({
+    //   variables: {
+    //     cartId: localStorage.getItem("id"),
+    //     itemId: id,
+    //   },
+    // });
+    // const res = await cartData;
+    // console.log(cartData, 999);
     // dispatch({
     //   type: "REMOVE_ITEM_FROM_CART",
     //   payload: res,
