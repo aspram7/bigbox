@@ -67,8 +67,6 @@ const ProductItem = () => {
     });
   };
 
-  // const [setCreateCart, { data: createCartId }] = useMutation(CREATE_CART);
-
   const addItemToCart = async () => {
     if (!localStorage.getItem("id")) {
       await dispatch(createCart());

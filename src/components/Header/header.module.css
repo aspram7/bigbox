@@ -85,7 +85,6 @@
 }
 .bag {
   position: relative;
-  cursor: pointer;
 }
 .bag > div {
   position: absolute;
@@ -102,6 +101,7 @@
 }
 .cart {
   position: relative;
+  cursor: pointer;
 }
 .cart:hover :global(.mini-cart) {
   display: block;

@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { useQuery } from "@apollo/client";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { CART_QUERY } from "../../GraphQl/queries";
 import Layout from "../Layout";
 import Menu from "../Menu";
@@ -14,6 +15,7 @@ import classes from "./header.module.css";
 const Header = () => {
   const width = useContext(WidthContext);
   const dispatch = useDispatch();
+  const history = useHistory();
   const { loading, data: cartData } = useQuery(CART_QUERY, {
     variables: { cartId: localStorage.getItem("id") },
     fetchPolicy: "no-cache",
@@ -29,6 +31,10 @@ const Header = () => {
       });
     }
   }, [loading]);
+
+  const handleCart = () => {
+    history.push(`/cart`);
+  };
 
   if (width < 992) {
     return (
@@ -91,7 +97,7 @@ const Header = () => {
                 </p>
               </div>
             </div>
-            <div className={classes.cart}>
+            <div className={classes.cart} onClick={handleCart}>
               <span className={classes.bag}>
                 <div>2</div>
               </span>

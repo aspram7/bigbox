@@ -1,38 +1,22 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useQuery, useMutation } from "@apollo/client";
-import { CART_QUERY, REMOVE_ITEM_FROM_CART } from "../../GraphQl/queries";
+import { useHistory } from "react-router-dom";
 import Button from "../../components/Button";
-import { getCartData, removeItemFromCart } from "../../store/action";
+import { removeItemFromCart } from "../../store/action";
 
 import classes from "./miniCart.module.css";
 
 const MiniCart = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const { setReduxCartData } = useSelector((state) => state);
-
-  // const [removeItemFromCart] = useMutation(REMOVE_ITEM_FROM_CART);
-
-  // const { data: cartData } = useQuery(CART_QUERY, {
-  //   variables: { cartId: localStorage.getItem("id") },
-  //   fetchPolicy: "no-cache",
-  // });
 
   const removeItem = async (id) => {
     dispatch(removeItemFromCart(id));
+  };
 
-    // await removeItemFromCart({
-    //   variables: {
-    //     cartId: localStorage.getItem("id"),
-    //     itemId: id,
-    //   },
-    // });
-    // const res = await cartData;
-    // console.log(cartData, 999);
-    // dispatch({
-    //   type: "REMOVE_ITEM_FROM_CART",
-    //   payload: res,
-    // });
+  const handleCart = () => {
+    history.push(`/cart`);
   };
 
   return (
@@ -62,7 +46,7 @@ const MiniCart = () => {
         <p>15.000Դ</p>
       </div>
       <div className={classes.miniCartButton}>
-        <Button>ԱՄԲՈՂՋ ԶԱՄԲՅՈՒՂԸ</Button>
+        <Button onClick={handleCart}>ԱՄԲՈՂՋ ԶԱՄԲՅՈՒՂԸ</Button>
         <Button>ՁԵՎԱԿԵՐՊԵԼ ՊԱՏՎԵՐ</Button>
       </div>
     </div>
