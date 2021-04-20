@@ -3,7 +3,6 @@
   background: #ffffff;
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.25);
   border-radius: 3px;
-  margin-bottom: 100px;
   width: 372px;
   position: absolute;
   z-index: 10;
@@ -98,4 +97,11 @@
   color: #ffffff;
   border-color: #33c0cb;
   background-color: #33c0cb;
+}
+.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 700;
 }

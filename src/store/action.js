@@ -34,7 +34,7 @@ export const getCartData = () => {
       dispatch({
         type: "CART_DATA",
         payload: {
-          cartData: cartData && cartData.data.cart.items,
+          cartData: cartData.data.cart.items,
         },
       });
     }
@@ -77,7 +77,7 @@ export const removeItemFromCart = (id) => {
       dispatch({
         type: "REMOVE_ITEM_FROM_CART",
         payload: {
-          removeItem,
+          removeItem: removeItem.data.removeItemFromCart.items,
         },
       });
     }

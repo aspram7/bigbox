@@ -19,9 +19,15 @@ const MiniCart = () => {
     history.push(`/cart`);
   };
 
+  let price = 0;
+
+  for (let i in setReduxCartData) {
+    price += setReduxCartData[i].price * setReduxCartData[i].quantity;
+  }
+
   return (
     <div className={`${classes.section} mini-cart`}>
-      {setReduxCartData &&
+      {setReduxCartData.length !== 0 ? (
         setReduxCartData.map((el, idx) => {
           return (
             <div className={classes.content} key={idx}>
@@ -39,11 +45,14 @@ const MiniCart = () => {
               </div>
             </div>
           );
-        })}
+        })
+      ) : (
+        <div className={classes.empty}>Զամբյուղը դատարկ է</div>
+      )}
 
       <div className={classes.total}>
         <p>ԸՆԴԱՄԵՆԸ</p>
-        <p>15.000Դ</p>
+        <p>{price}</p>
       </div>
       <div className={classes.miniCartButton}>
         <Button onClick={handleCart}>ԱՄԲՈՂՋ ԶԱՄԲՅՈՒՂԸ</Button>

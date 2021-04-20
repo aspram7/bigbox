@@ -40,10 +40,15 @@
 .remove {
   width: 3%;
 }
-.body img {
+.image {
   width: 125px;
   height: 125px;
   margin-right: 30px;
+  display: flex;
+  align-items: center;
+}
+.image > img {
+  width: 100%;
   object-fit: cover;
 }
 .name {
@@ -147,4 +152,12 @@ input[type="number"]::-webkit-inner-spin-button {
   color: #ffffff;
   border-color: #33c0cb;
   background-color: #33c0cb;
+}
+.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 30px 0;
 }

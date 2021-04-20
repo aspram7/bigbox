@@ -2,7 +2,7 @@ import { types } from "./types";
 
 const initialState = {
   cartID: localStorage.getItem("id") || null,
-  setReduxCartData: null,
+  setReduxCartData: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -20,7 +20,7 @@ const reducer = (state = initialState, action) => {
     case types.REMOVE_ITEM_FROM_CART:
       return {
         ...state,
-        setReduxCartData: action.payload.cartData,
+        setReduxCartData: action.payload.removeItem,
       };
 
     default:

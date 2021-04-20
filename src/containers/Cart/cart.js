@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "../../components/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { removeItemFromCart, setItemToCart } from "../../store/action";
@@ -21,7 +21,7 @@ const Store = () => {
   let price = 0;
 
   for (let i in setReduxCartData) {
-    price += setReduxCartData[i].price;
+    price += setReduxCartData[i].price * setReduxCartData[i].quantity;
   }
 
   return (
@@ -35,7 +35,7 @@ const Store = () => {
           <div className={classes.quantity}>ՔԱՆԱԿ</div>
           <div className={classes.total}>ԸՆԴԱՄԵՆԸ</div>
         </div>
-        {setReduxCartData &&
+        {setReduxCartData.length !== 0 ? (
           setReduxCartData.map((el, idx) => {
             return (
               <div className={classes.body} key={idx}>
@@ -43,10 +43,12 @@ const Store = () => {
                   <span className={classes.removeX} onClick={() => removeItem(el.id)}></span>
                 </div>
                 <div className={classes.name}>
-                  <img
-                    src={`https://vmall-api.yereone.com/media/6027acbe5fc2b4627256d612/${el.thumbnail}`}
-                    alt=""
-                  />
+                  <div className={classes.image}>
+                    <img
+                      src={`https://vmall-api.yereone.com/media/6027acbe5fc2b4627256d612/${el.thumbnail}`}
+                      alt=""
+                    />
+                  </div>
                   <p>{el.name}</p>
                 </div>
                 <div className={classes.price}>{el.price}</div>
@@ -74,7 +76,10 @@ const Store = () => {
                 <div className={classes.total}>{el.quantity * el.price}</div>
               </div>
             );
-          })}
+          })
+        ) : (
+          <div className={classes.empty}>Զամբյուղը դատարկ է</div>
+        )}
       </div>
       <div className={classes.totalPrice}>
         <p>ԸՆԴԱՄԵՆԸ:</p>

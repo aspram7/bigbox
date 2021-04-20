@@ -101,6 +101,8 @@
 }
 .cart {
   position: relative;
+}
+.cartHedaer {
   cursor: pointer;
 }
 .cart:hover :global(.mini-cart) {

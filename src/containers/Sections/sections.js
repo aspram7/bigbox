@@ -5,18 +5,20 @@ import BestSeller from "../BestSeller";
 import Gift from "../Gift";
 import NewProducts from "../NewProducts";
 import Service from "../Service";
-import Cart from "../Cart";
+import Footer from "../../components/Footer";
 
 const Sections = () => {
   return (
-    <Layout>
-      <Home />
-      <BestSeller />
-      <Gift />
-      <NewProducts />
-      <Service />
-      <Cart />
-    </Layout>
+    <div>
+      <Layout>
+        <Home />
+        <BestSeller />
+        <Gift />
+        <NewProducts />
+        <Service />
+      </Layout>
+      <Footer />
+    </div>
   );
 };
 

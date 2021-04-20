@@ -97,11 +97,13 @@ const Header = () => {
                 </p>
               </div>
             </div>
-            <div className={classes.cart} onClick={handleCart}>
-              <span className={classes.bag}>
-                <div>2</div>
-              </span>
-              <div>Զամբյուղ</div>
+            <div className={classes.cart}>
+              <div className={classes.cartHedaer} onClick={handleCart}>
+                <span className={classes.bag}>
+                  <div>2</div>
+                </span>
+                <div>Զամբյուղ</div>
+              </div>
               <MiniCart />
             </div>
           </div>
