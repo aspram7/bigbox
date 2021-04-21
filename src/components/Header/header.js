@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useQuery } from "@apollo/client";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -8,11 +8,13 @@ import Menu from "../Menu";
 import { WidthContext } from "../../App";
 import bigboxLogoHeader from "../../assets/svg/bigbox-logo-header.svg";
 import hamburgerMenu from "../../assets/svg/hamburger-menu.svg";
+import SignUpForm from "../../containers/Auth/SignUpForm";
 import MiniCart from "../../containers/MiniCart";
 
 import classes from "./header.module.css";
 
 const Header = () => {
+  const [modalToggle, setModalToggle] = useState(false);
   const width = useContext(WidthContext);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -35,6 +37,15 @@ const Header = () => {
   const handleCart = () => {
     history.push(`/cart`);
   };
+
+  const modalHandler = (e) => {
+    e.preventDefault(); 
+    setModalToggle(!modalToggle)
+  }
+
+  const handleClose = () => {
+    setModalToggle(false)
+  }
 
   if (width < 992) {
     return (
@@ -90,12 +101,17 @@ const Header = () => {
           </div>
           <div className={classes.rightBox}>
             <div>
+              <div onClick={modalHandler}>
               <span className={classes.smile}></span>
               <div>
                 <p>
                   Գրանցում <span>/ Մուտք</span>{" "}
                 </p>
               </div>
+              </div>
+              <SignUpForm show={modalToggle} handleClose={handleClose}>
+                
+              </SignUpForm>
             </div>
             <div className={classes.cart}>
               <div className={classes.cartHedaer} onClick={handleCart}>
