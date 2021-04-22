@@ -1,8 +1,12 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 import Modal from "../../../components/Modal";
 import Button from "../../../components/Button";
+import {
+  SIGN_UP
+} from "../../../GraphQl/queries";
 import classes from "./signUpForm.module.css";
 
 const validationSchema = Yup.object().shape({
@@ -19,9 +23,17 @@ const SignUpForm = (props) => {
       password: "",
     },
     validationSchema,
-    onSubmit: (values, formik) => {},
+    onSubmit: (values, formik) => {
+      setSignUp({
+        variables: { signUpData: {firstName: values.firstName, lastName: values.lastName, username: values.mail, password: values.password} },
+      })
+
+      console.log(signUpData, 88);
+    },
   });
-  console.log(formik);
+  
+  const [setSignUp, { data: signUpData }] = useMutation(SIGN_UP);
+
   return (
     <div className={classes.section}>
       <Modal show={props.show} handleClose={props.handleClose}>
@@ -29,14 +41,14 @@ const SignUpForm = (props) => {
         <h4 className={classes.title}>Գրանցում</h4>
         <form onSubmit={formik.handleSubmit} className={classes.form} autoComplete="off">
           <div className={classes.formInputs}>
-            <label htmlFor="first-name">
+            <label htmlFor="first-name" autoComplete="off">
               <input
                 type="text"
                 name="firstName"
                 id="first-name"
                 onChange={formik.handleChange}
-                value={formik.values.mail}
-                placeholder="Անուն"
+                value={formik.values.firstName}
+                placeholder="Անուն" 
               />
               {formik.errors.firstName && formik.errors.touched ? (
                 <div className={classes.error}>{`*${formik.errors.firstName}`}</div>
@@ -48,8 +60,9 @@ const SignUpForm = (props) => {
                 name="lastName"
                 id="last-name"
                 onChange={formik.handleChange}
-                value={formik.values.password}
+                value={formik.values.lastName}
                 placeholder="Ազգանուն"
+                autoComplete="off"
               />
               {formik.errors.lastName && formik.errors.touched ? (
                 <div className={classes.error}>{`*${formik.errors.lastName}`}</div>
@@ -63,6 +76,7 @@ const SignUpForm = (props) => {
                 onChange={formik.handleChange}
                 value={formik.values.mail}
                 placeholder="Էլ. փոստ"
+                autoComplete="off"
               />
               {formik.errors.mail && formik.errors.touched ? (
                 <div className={classes.error}>{`*${formik.errors.mail}`}</div>
@@ -76,6 +90,7 @@ const SignUpForm = (props) => {
                 onChange={formik.handleChange}
                 value={formik.values.password}
                 placeholder="Գաղտնաբառ"
+                autoComplete="off"
               />
               {formik.errors.password && formik.errors.touched ? (
                 <div className={classes.error}>{`*${formik.errors.password}`}</div>

@@ -141,3 +141,14 @@ export const REMOVE_ITEM_FROM_CART = gql`
     }
   }
 `;
+
+export const SIGN_UP = gql`
+  mutation SignUp($signUpData: SignUpInput!) {
+    signUp(signUpData: $signUpData) {
+      code
+      userId
+      shopName
+      accessToken
+  }
+}
+`;
