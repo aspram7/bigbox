@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import SignInForm from "./SignInForm";
-import SignUpForm from "./SignUpForm";
+// import SignInForm from "./SignInForm";
+// import SignUpForm from "./SignUpForm";
 import ResetPassword from "./ResetPassword";
 
 const Auth = (props) => {
