@@ -5,8 +5,8 @@
   grid-gap: 14px;
   position: relative;
 }
-input[type="text"],
-textarea {
+.formInputs input[type="text"],
+.formInputs textarea {
   border: 0.5px solid #d8d8d8;
   outline: none;
   padding: 10px 15px;

@@ -8,7 +8,7 @@ import Menu from "../Menu";
 import { WidthContext } from "../../App";
 import bigboxLogoHeader from "../../assets/svg/bigbox-logo-header.svg";
 import hamburgerMenu from "../../assets/svg/hamburger-menu.svg";
-import SignUpForm from "../../containers/Auth/SignUpForm";
+import Auth from "../../containers/Auth";
 import MiniCart from "../../containers/MiniCart";
 
 import classes from "./header.module.css";
@@ -38,14 +38,14 @@ const Header = () => {
     history.push(`/cart`);
   };
 
-  const modalHandler = (e) => {
-    e.preventDefault(); 
-    setModalToggle(!modalToggle)
-  }
+  const handleOpen = (e) => {
+    e.preventDefault();
+    setModalToggle(true);
+  };
 
   const handleClose = () => {
-    setModalToggle(false)
-  }
+    setModalToggle(false);
+  };
 
   if (width < 992) {
     return (
@@ -101,17 +101,13 @@ const Header = () => {
           </div>
           <div className={classes.rightBox}>
             <div>
-              <div onClick={modalHandler}>
-              <span className={classes.smile}></span>
-              <div>
+              <div className={classes.auth} onClick={handleOpen}>
+                <span className={classes.smile}></span>
                 <p>
                   Գրանցում <span>/ Մուտք</span>{" "}
                 </p>
               </div>
-              </div>
-              <SignUpForm show={modalToggle} handleClose={handleClose}>
-                
-              </SignUpForm>
+              <Auth show={modalToggle} handleClose={handleClose}></Auth>
             </div>
             <div className={classes.cart}>
               <div className={classes.cartHedaer} onClick={handleCart}>

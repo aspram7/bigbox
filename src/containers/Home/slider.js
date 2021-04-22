@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CarouselProvider, Slider, Slide, DotGroup } from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css";
-import { useQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import { GET_SLIDER_IMAGES } from "../../GraphQl/queries";
 import Button from "../../components/Button";
 import ImageProduct from "../../components/Image";
@@ -11,13 +11,17 @@ import classes from "./slider.module.css";
 const SliderMain = ({ className }) => {
   const [sizes, setSizes] = useState([]);
 
-  const { loading, error, data } = useQuery(GET_SLIDER_IMAGES, {
+  const [getSliderImage, { loading, error, data }] = useLazyQuery(GET_SLIDER_IMAGES, {
     variables: { sliderId: "606ec4f87a26b539448f40e0" },
   });
 
   const handleSizes = (width, height) => {
     setSizes([...sizes, { width, height }]);
   };
+
+  useEffect(() => {
+    getSliderImage();
+  }, []);
 
   if (error) return <h1>error</h1>;
   if (loading) return <h1>loading</h1>;

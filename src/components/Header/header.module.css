@@ -126,6 +126,9 @@
 .headerTopRight {
   display: flex;
 }
+.auth {
+  cursor: pointer;
+}
 .bagMobile {
   margin: 0 0 0 13px;
   position: relative;
