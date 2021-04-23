@@ -31,10 +31,12 @@ const MiniCart = () => {
         setReduxCartData.map((el, idx) => {
           return (
             <div className={classes.content} key={idx}>
-              <img
-                src={`https://vmall-api.yereone.com/media/6027acbe5fc2b4627256d612/${el.thumbnail}`}
-                alt=""
-              />
+              <div className={classes.contentImg}>
+                <img
+                  src={`https://vmall-api.yereone.com/media/6027acbe5fc2b4627256d612/${el.thumbnail}`}
+                  alt=""
+                />
+              </div>
               <div className={classes.text}>
                 <div>
                   <p className={classes.name}>{el.name}</p>
