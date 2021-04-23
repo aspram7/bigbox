@@ -149,6 +149,38 @@ export const SIGN_UP = gql`
       userId
       shopName
       accessToken
+    }
   }
-}
+`;
+
+export const SIGN_IN = gql`
+  mutation SignIn($username: String!, $password: String!) {
+    signIn(username: $username, password: $password) {
+      id
+      email
+      phone
+      language
+      firstName
+      lastName
+      shopId
+      accessToken
+      lastActionId
+    }
+  }
+`;
+
+export const CURRENT_CUSTOMER = gql`
+  query CurrentCustomer {
+    currentCustomer {
+      id
+      email
+      phone
+      language
+      firstName
+      lastName
+      shopId
+      accessToken
+      lastActionId
+    }
+  }
 `;

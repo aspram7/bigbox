@@ -5,7 +5,7 @@ const initialState = {
   setReduxCartData: [],
 };
 
-const reducer = (state = initialState, action) => {
+const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case types.ADD_ID_TO_REDUX:
       return {
@@ -28,4 +28,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export default reducer;
+export default cartReducer;

@@ -7,7 +7,7 @@ import classes from "./cart.module.css";
 
 const Store = () => {
   const dispatch = useDispatch();
-  const { setReduxCartData } = useSelector((state) => state);
+  const { setReduxCartData } = useSelector((state) => state.cartReducer);
 
   const removeItem = async (id) => {
     dispatch(removeItemFromCart(id));

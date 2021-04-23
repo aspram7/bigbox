@@ -17,7 +17,6 @@ const SignInForm = (props) => {
     validationSchema,
     onSubmit: (values, formik) => {},
   });
-  console.log(props);
   return (
     <div className={classes.section}>
       <Modal show={props.show} handleClose={props.handleClose}>

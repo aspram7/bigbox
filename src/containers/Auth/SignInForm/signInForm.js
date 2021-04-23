@@ -1,8 +1,12 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useDispatch, useSelector } from "react-redux";
+import { useMutation } from "@apollo/client";
 import Modal from "../../../components/Modal";
 import Button from "../../../components/Button";
+import { SIGN_IN } from "../../../GraphQl/queries";
+import { signIn } from "../../../store/auth/action";
 import classes from "./signInForm.module.css";
 
 const validationSchema = Yup.object().shape({
@@ -11,21 +15,37 @@ const validationSchema = Yup.object().shape({
 });
 
 const SignInForm = (props) => {
+  const dispatch = useDispatch();
+  const a = useSelector((state) => state);
   const formik = useFormik({
     initialValues: {
       mail: "",
       password: "",
     },
     validationSchema,
-    onSubmit: (values, formik) => {},
+    onSubmit: async (values, formik) => {
+      try {
+        await setSignIn({
+          variables: {
+            username: values.mail,
+            password: values.password,
+          },
+        });
+        await dispatch(signIn(values.mail, values.password));
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
+    },
   });
-  console.log(props);
+
+  const [setSignIn] = useMutation(SIGN_IN);
   return (
     <div className={classes.section}>
       <Modal show={props.show} handleClose={props.handleClose}>
         <span className={classes.close} onClick={props.handleClose}></span>
         <h4 className={classes.title}>Մուտք</h4>
-        <form onSubmit={formik.handleSubmit} className={classes.form} autoComplete="off">
+        <form onSubmit={formik.handleSubmit} className={classes.form}>
           <div className={classes.formInputs}>
             <label htmlFor="mail">
               <input

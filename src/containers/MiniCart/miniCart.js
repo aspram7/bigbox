@@ -9,7 +9,7 @@ import classes from "./miniCart.module.css";
 const MiniCart = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { setReduxCartData } = useSelector((state) => state);
+  const { setReduxCartData } = useSelector((state) => state.cartReducer);
 
   const removeItem = async (id) => {
     dispatch(removeItemFromCart(id));

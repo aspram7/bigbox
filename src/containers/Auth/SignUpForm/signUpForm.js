@@ -1,12 +1,12 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
+import { useDispatch } from "react-redux";
+import { useMutation } from "@apollo/client";
 import Modal from "../../../components/Modal";
 import Button from "../../../components/Button";
-import {
-  SIGN_UP
-} from "../../../GraphQl/queries";
+import { SIGN_UP } from "../../../GraphQl/queries";
+import { signUpId } from "../../../store/auth/action";
 import classes from "./signUpForm.module.css";
 
 const validationSchema = Yup.object().shape({
@@ -15,6 +15,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const SignUpForm = (props) => {
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       firstName: "",
@@ -23,16 +24,29 @@ const SignUpForm = (props) => {
       password: "",
     },
     validationSchema,
-    onSubmit: (values, formik) => {
-      setSignUp({
-        variables: { signUpData: {firstName: values.firstName, lastName: values.lastName, username: values.mail, password: values.password} },
-      })
-
-      console.log(signUpData, 88);
+    onSubmit: async (values, formik) => {
+      try {
+        await setSignUp({
+          variables: {
+            signUpData: {
+              firstName: values.firstName,
+              lastName: values.lastName,
+              username: values.mail,
+              password: values.password,
+            },
+          },
+        });
+        await dispatch(signUpId(values.firstName, values.lastName, values.mail, values.password));
+      } catch (err) {
+        console.log(err);
+        throw err;
+      }
     },
   });
-  
-  const [setSignUp, { data: signUpData }] = useMutation(SIGN_UP);
+
+  const [setSignUp] = useMutation(SIGN_UP);
+
+  // console.log(signUpData && signUpData.userId, 99);
 
   return (
     <div className={classes.section}>
@@ -48,7 +62,7 @@ const SignUpForm = (props) => {
                 id="first-name"
                 onChange={formik.handleChange}
                 value={formik.values.firstName}
-                placeholder="Անուն" 
+                placeholder="Անուն"
               />
               {formik.errors.firstName && formik.errors.touched ? (
                 <div className={classes.error}>{`*${formik.errors.firstName}`}</div>

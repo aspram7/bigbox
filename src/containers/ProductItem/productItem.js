@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
+import { useQuery, useLazyQuery } from "@apollo/client";
 import { useParams } from "react-router";
 import StarRatings from "react-star-ratings";
 import { useDispatch } from "react-redux";
-import { GET_PRODUCT_DATA, GET_PRODUCT_REVIEWS, CREATE_CART } from "../../GraphQl/queries";
+import { GET_PRODUCT_DATA, GET_PRODUCT_REVIEWS } from "../../GraphQl/queries";
 import Layout from "../../components/Layout";
 import Button from "../../components/Button";
 import { ColorSelect } from "../../components/DropDown";
@@ -71,7 +71,7 @@ const ProductItem = () => {
     if (!localStorage.getItem("id")) {
       await dispatch(createCart());
     }
-    dispatch(getCartData());
+    // dispatch(getCartData());
     dispatch(setItemToCart(prductData.resolveUnknownRoute.id, quantity));
   };
 
