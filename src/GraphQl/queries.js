@@ -169,6 +169,12 @@ export const SIGN_IN = gql`
   }
 `;
 
+export const SIGN_UP_CONFIRM = gql`
+  mutation SignUpConfirm($username: String!, $confirmationCode: String!, $userId: String!) {
+    signUpConfirm(username: $username, confirmationCode: $confirmationCode, userId: $userId)
+  }
+`;
+
 export const CURRENT_CUSTOMER = gql`
   query CurrentCustomer {
     currentCustomer {

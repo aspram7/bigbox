@@ -1,19 +1,38 @@
 import { client } from "../../App";
-import { SIGN_UP, SIGN_IN } from "../../GraphQl/queries";
+import { SIGN_UP, SIGN_IN, SIGN_UP_CONFIRM } from "../../GraphQl/queries";
 
-export const signUpId = (firstName, lastName, username, password) => {
+export const signUp = (firstName, lastName, username, password) => {
   return async (dispatch) => {
     if (client) {
-      const signUpId = await client.mutate({
+      const signUp = await client.mutate({
         mutation: SIGN_UP,
         variables: { signUpData: { firstName, lastName, username, password } },
       });
-      // localStorage.setItem("signUpId", signUpId.data.userId);
-      console.log(signUpId.data.userId, 999);
       dispatch({
-        type: "SIGN_UP_ID",
+        type: "SIGN_UP",
         payload: {
-          signUpId: localStorage.getItem("signUpId"),
+          signUp: signUp && signUp.data.signUp,
+        },
+      });
+    }
+  };
+};
+
+export const signUpConfirmCode = (username, confirmationCode, userId) => {
+  return async (dispatch) => {
+    if (client) {
+      const signUpConfirmCode = await client.mutate({
+        mutation: SIGN_UP_CONFIRM,
+        variables: {
+          username,
+          confirmationCode,
+          userId,
+        },
+      });
+      dispatch({
+        type: "SIGN_UP_CONFIRM",
+        payload: {
+          signUpConfirm: signUpConfirmCode,
         },
       });
     }
@@ -27,11 +46,11 @@ export const signIn = (username, password) => {
         mutation: SIGN_IN,
         variables: { username, password },
       });
-      localStorage.setItem("user", signIn.data.signIn.accessToken);
+      localStorage.setItem("token", signIn.data.signIn.accessToken);
       dispatch({
         type: "SET_USER",
         payload: {
-          user: signIn,
+          token: signIn,
         },
       });
     }

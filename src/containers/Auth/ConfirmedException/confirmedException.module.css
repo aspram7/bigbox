@@ -1,0 +1,82 @@
+.close {
+  font-family: "icomoon";
+  font-size: 13px;
+  color: #bababa;
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  cursor: pointer;
+}
+.close::before {
+  content: "\e91a";
+}
+.title {
+  font-size: 22px;
+  margin-bottom: 72px;
+  text-align: center;
+  font-size: 20px;
+  position: relative;
+}
+.title::after {
+  content: "";
+  border-bottom: 3px solid #ff4d41;
+  position: absolute;
+  width: 28px;
+  top: calc(100% + 18px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+.formInputs {
+  display: flex;
+  flex-direction: column;
+}
+.formInputs input {
+  background-color: #ffffff;
+  border: 0.5px solid #d8d8d8;
+  box-sizing: border-box;
+  border-radius: 4px;
+  outline: none;
+  padding: 10px 20px;
+  width: 100%;
+  margin-bottom: 13px;
+}
+.resetPassword {
+  font-size: 12px;
+  color: #9a9a9a;
+  margin-bottom: 21px;
+  text-align: left;
+}
+.authButton {
+  font-size: 13px;
+  color: #ffffff;
+  width: 100%;
+  composes: button from "../../../components/Button/button.module.css";
+  background-color: #33c0cb;
+  border-color: #33c0cb;
+  margin-bottom: 9px;
+}
+.disabledButton {
+  margin-top: 23px;
+  background-color: #33c0cb;
+  border-color: #33c0cb;
+  color: #ffffff;
+  padding: 11px 52px;
+  outline: none;
+  border-radius: 62px;
+  opacity: 0.6;
+  pointer-events: none;
+  width: 100%;
+}
+.signUp {
+  font-size: 13px;
+  color: #000000;
+  margin-top: 12px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.error {
+  color: red;
+  position: absolute;
+  top: 30px;
+  font-size: 10px;
+}

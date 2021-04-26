@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useMutation } from "@apollo/client";
 import Modal from "../../../components/Modal";
 import Button from "../../../components/Button";
-import { SIGN_IN } from "../../../GraphQl/queries";
 import { signIn } from "../../../store/auth/action";
 import classes from "./signInForm.module.css";
 
@@ -23,14 +22,8 @@ const SignInForm = (props) => {
       password: "",
     },
     validationSchema,
-    onSubmit: async (values, formik) => {
+    onSubmit: async (values) => {
       try {
-        await setSignIn({
-          variables: {
-            username: values.mail,
-            password: values.password,
-          },
-        });
         await dispatch(signIn(values.mail, values.password));
       } catch (err) {
         console.log(err);
@@ -39,7 +32,6 @@ const SignInForm = (props) => {
     },
   });
 
-  const [setSignIn] = useMutation(SIGN_IN);
   return (
     <div className={classes.section}>
       <Modal show={props.show} handleClose={props.handleClose}>

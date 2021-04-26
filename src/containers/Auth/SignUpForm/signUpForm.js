@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
-import { useMutation } from "@apollo/client";
 import Modal from "../../../components/Modal";
 import Button from "../../../components/Button";
-import { SIGN_UP } from "../../../GraphQl/queries";
-import { signUpId } from "../../../store/auth/action";
+import ConfirmedException from "../ConfirmedException";
+import { signUp } from "../../../store/auth/action";
 import classes from "./signUpForm.module.css";
 
 const validationSchema = Yup.object().shape({
@@ -15,6 +14,7 @@ const validationSchema = Yup.object().shape({
 });
 
 const SignUpForm = (props) => {
+  const [isSignup, setIsSignUp] = useState(true);
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -24,113 +24,103 @@ const SignUpForm = (props) => {
       password: "",
     },
     validationSchema,
-    onSubmit: async (values, formik) => {
-      try {
-        await setSignUp({
-          variables: {
-            signUpData: {
-              firstName: values.firstName,
-              lastName: values.lastName,
-              username: values.mail,
-              password: values.password,
-            },
-          },
-        });
-        await dispatch(signUpId(values.firstName, values.lastName, values.mail, values.password));
-      } catch (err) {
-        console.log(err);
-        throw err;
-      }
+    onSubmit: (values) => {
+      dispatch(signUp(values.firstName, values.lastName, values.mail, values.password));
+      setIsSignUp(false);
     },
   });
 
-  const [setSignUp] = useMutation(SIGN_UP);
-
-  // console.log(signUpData && signUpData.userId, 99);
-
   return (
     <div className={classes.section}>
-      <Modal show={props.show} handleClose={props.handleClose}>
-        <span className={classes.close} onClick={props.handleClose}></span>
-        <h4 className={classes.title}>Գրանցում</h4>
-        <form onSubmit={formik.handleSubmit} className={classes.form} autoComplete="off">
-          <div className={classes.formInputs}>
-            <label htmlFor="first-name" autoComplete="off">
-              <input
-                type="text"
-                name="firstName"
-                id="first-name"
-                onChange={formik.handleChange}
-                value={formik.values.firstName}
-                placeholder="Անուն"
-              />
-              {formik.errors.firstName && formik.errors.touched ? (
-                <div className={classes.error}>{`*${formik.errors.firstName}`}</div>
-              ) : null}
-            </label>
-            <label htmlFor="last-name">
-              <input
-                type="text"
-                name="lastName"
-                id="last-name"
-                onChange={formik.handleChange}
-                value={formik.values.lastName}
-                placeholder="Ազգանուն"
-                autoComplete="off"
-              />
-              {formik.errors.lastName && formik.errors.touched ? (
-                <div className={classes.error}>{`*${formik.errors.lastName}`}</div>
-              ) : null}
-            </label>
-            <label htmlFor="mail">
-              <input
-                type="text"
-                name="mail"
-                id="mail"
-                onChange={formik.handleChange}
-                value={formik.values.mail}
-                placeholder="Էլ. փոստ"
-                autoComplete="off"
-              />
-              {formik.errors.mail && formik.errors.touched ? (
-                <div className={classes.error}>{`*${formik.errors.mail}`}</div>
-              ) : null}
-            </label>
-            <label htmlFor="password">
-              <input
-                type="password"
-                name="password"
-                id="password"
-                onChange={formik.handleChange}
-                value={formik.values.password}
-                placeholder="Գաղտնաբառ"
-                autoComplete="off"
-              />
-              {formik.errors.password && formik.errors.touched ? (
-                <div className={classes.error}>{`*${formik.errors.password}`}</div>
-              ) : null}
-            </label>
-          </div>
-          <Button
-            classes={
-              formik.isValid
-                ? { button: classes.authButton }
-                : { disabledButton: classes.disabledButton }
-            }
-          >
-            ՈՒՂԱՐԿԵԼ
-          </Button>
-          <Button
-            classes={
-              formik.isValid
-                ? { button: classes.facebookButton }
-                : { disabledButton: classes.disabledButton }
-            }
-          >
-            ՄՈՒՏՔ ԳՈՐԾԵԼ FACEBOOK-Ի ՄԻՋՈՑՈՎ
-          </Button>
-        </form>
-      </Modal>
+      {isSignup ? (
+        <Modal show={props.show} handleClose={props.handleClose}>
+          <span className={classes.close} onClick={props.handleClose}></span>
+          <h4 className={classes.title}>Գրանցում</h4>
+          <form onSubmit={formik.handleSubmit} className={classes.form} autoComplete="off">
+            <div className={classes.formInputs}>
+              <label htmlFor="first-name" autoComplete="off">
+                <input
+                  type="text"
+                  name="firstName"
+                  id="first-name"
+                  onChange={formik.handleChange}
+                  value={formik.values.firstName}
+                  placeholder="Անուն"
+                />
+                {formik.errors.firstName && formik.errors.touched ? (
+                  <div className={classes.error}>{`*${formik.errors.firstName}`}</div>
+                ) : null}
+              </label>
+              <label htmlFor="last-name">
+                <input
+                  type="text"
+                  name="lastName"
+                  id="last-name"
+                  onChange={formik.handleChange}
+                  value={formik.values.lastName}
+                  placeholder="Ազգանուն"
+                  autoComplete="off"
+                />
+                {formik.errors.lastName && formik.errors.touched ? (
+                  <div className={classes.error}>{`*${formik.errors.lastName}`}</div>
+                ) : null}
+              </label>
+              <label htmlFor="mail">
+                <input
+                  type="text"
+                  name="mail"
+                  id="mail"
+                  onChange={formik.handleChange}
+                  value={formik.values.mail}
+                  placeholder="Էլ. փոստ"
+                  autoComplete="off"
+                />
+                {formik.errors.mail && formik.errors.touched ? (
+                  <div className={classes.error}>{`*${formik.errors.mail}`}</div>
+                ) : null}
+              </label>
+              <label htmlFor="password">
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  onChange={formik.handleChange}
+                  value={formik.values.password}
+                  placeholder="Գաղտնաբառ"
+                  autoComplete="off"
+                />
+                {formik.errors.password && formik.errors.touched ? (
+                  <div className={classes.error}>{`*${formik.errors.password}`}</div>
+                ) : null}
+              </label>
+            </div>
+            <Button
+              classes={
+                formik.isValid
+                  ? { button: classes.authButton }
+                  : { disabledButton: classes.disabledButton }
+              }
+            >
+              ՈՒՂԱՐԿԵԼ
+            </Button>
+            <Button
+              classes={
+                formik.isValid
+                  ? { button: classes.facebookButton }
+                  : { disabledButton: classes.disabledButton }
+              }
+            >
+              ՄՈՒՏՔ ԳՈՐԾԵԼ FACEBOOK-Ի ՄԻՋՈՑՈՎ
+            </Button>
+          </form>
+        </Modal>
+      ) : (
+        <ConfirmedException
+          show={props.show}
+          handleClose={props.handleClose}
+          userName={formik.values && formik.values.mail}
+        />
+      )}
     </div>
   );
 };

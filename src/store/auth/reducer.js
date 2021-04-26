@@ -1,21 +1,28 @@
 import { types } from "./types";
 
 const initialState = {
-  signUpId: null,
-  user: JSON.parse(localStorage.getItem("user")) || null,
+  signUp: null,
+  signUpConfirm: false,
+  token: JSON.parse(localStorage.getItem("token")) || null,
 };
 
-const signUpIdReducer = (state = initialState, action) => {
+const signUpReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.SIGN_UP_ID:
+    case types.SIGN_UP:
       return {
         ...state,
-        signUpId: action.payload.signUpId,
+        signUp: action.payload.signUp,
+      };
+    case types.SIGN_UP_CONFIRM:
+      return {
+        ...state,
+        signUpConfirm: action.payload.signUpConfirm,
       };
     case types.SET_USER:
+      console.log(JSON.parse(localStorage.getItem("user")), 777);
       return {
         ...state,
-        user: action.payload.user,
+        token: action.payload.token,
       };
 
     default:
@@ -23,4 +30,4 @@ const signUpIdReducer = (state = initialState, action) => {
   }
 };
 
-export default signUpIdReducer;
+export default signUpReducer;
