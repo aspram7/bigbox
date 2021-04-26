@@ -1,8 +1,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
-import { useMutation } from "@apollo/client";
+import { useDispatch } from "react-redux";
 import Modal from "../../../components/Modal";
 import Button from "../../../components/Button";
 import { signIn } from "../../../store/auth/action";
@@ -15,7 +14,6 @@ const validationSchema = Yup.object().shape({
 
 const SignInForm = (props) => {
   const dispatch = useDispatch();
-  const a = useSelector((state) => state);
   const formik = useFormik({
     initialValues: {
       mail: "",

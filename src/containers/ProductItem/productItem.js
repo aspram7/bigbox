@@ -9,7 +9,7 @@ import Button from "../../components/Button";
 import { ColorSelect } from "../../components/DropDown";
 import ProductItemCarousel from "./productItemCarousel";
 import ReviewForm from "../../components/ReviewForm";
-import { createCart, getCartData, setItemToCart } from "../../store/action";
+import { createCart, setItemToCart } from "../../store/action";
 
 import inStock from "../../assets/svg/in-stock.svg";
 import classes from "./productItem.module.css";

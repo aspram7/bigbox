@@ -1,5 +1,5 @@
 import React from "react";
-import { ApolloProvider, ApolloClient, InMemoryCache, useQuery } from "@apollo/client";
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import { useWindowWidth } from "./helpers/getWindowWidth";
 import Router from "./routes/appRoutes";
 import { Provider } from "react-redux";
@@ -14,6 +14,7 @@ export const client = new ApolloClient({
   cache: new InMemoryCache(),
   headers: {
     "account-id": "6027acbe5fc2b4627256d612",
+    "authentication": localStorage.getItem("token"), 
     locale: "en_US",
   },
 });

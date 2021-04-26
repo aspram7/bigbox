@@ -21,6 +21,7 @@ const SliderMain = ({ className }) => {
 
   useEffect(() => {
     getSliderImage();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (error) return <h1>error</h1>;

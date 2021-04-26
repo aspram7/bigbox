@@ -3,7 +3,7 @@ import { types } from "./types";
 const initialState = {
   signUp: null,
   signUpConfirm: false,
-  token: JSON.parse(localStorage.getItem("token")) || null,
+  // token: JSON.parse(localStorage.getItem("token")) || null,
 };
 
 const signUpReducer = (state = initialState, action) => {
