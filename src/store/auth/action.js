@@ -11,33 +11,33 @@ export const signUp = (firstName, lastName, username, password) => {
       dispatch({
         type: "SIGN_UP",
         payload: {
-          signUp: signUp && signUp.data.signUp,
+          signUp: signUp.data.signUp,
         },
       });
     }
   };
 };
 
-export const signUpConfirmCode = (username, confirmationCode, userId) => {
-  return async (dispatch) => {
-    if (client) {
-      const signUpConfirmCode = await client.mutate({
-        mutation: SIGN_UP_CONFIRM,
-        variables: {
-          username,
-          confirmationCode,
-          userId,
-        },
-      });
-      dispatch({
-        type: "SIGN_UP_CONFIRM",
-        payload: {
-          signUpConfirm: signUpConfirmCode,
-        },
-      });
-    }
-  };
-};
+// export const signUpConfirmCode = (username, confirmationCode, userId) => {
+//   return async (dispatch) => {
+//     if (client) {
+//       const signUpConfirmCode = await client.mutate({
+//         mutation: SIGN_UP_CONFIRM,
+//         variables: {
+//           username,
+//           confirmationCode,
+//           userId,
+//         },
+//       });
+//       dispatch({
+//         type: "SIGN_UP_CONFIRM",
+//         payload: {
+//           signUpConfirm: signUpConfirmCode,
+//         },
+//       });
+//     }
+//   };
+// };
 
 export const signIn = (username, password) => {
   return async (dispatch) => {

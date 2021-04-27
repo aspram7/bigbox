@@ -175,6 +175,12 @@ export const SIGN_UP_CONFIRM = gql`
   }
 `;
 
+export const RESEND_CONFIRMATION_CODE = gql`
+  mutation ResendConfirmationCode($username: String) {
+    resendConfirmationCode(username: $username)
+  }
+`;
+
 export const CURRENT_CUSTOMER = gql`
   query CurrentCustomer {
     currentCustomer {

@@ -1,0 +1,35 @@
+.section {
+  margin: 80px auto 96px;
+}
+.section h4 {
+  margin-bottom: 91px;
+  text-align: center;
+  font-size: 20px;
+  position: relative;
+}
+.section h4::after {
+  content: "";
+  border-bottom: 3px solid #ff4d41;
+  position: absolute;
+  width: 28px;
+  top: calc(100% + 18px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+.menu {
+}
+.menuItem,
+.active {
+  position: relative;
+  font-size: 14px;
+  margin-bottom: 25px;
+  cursor: pointer;
+}
+.active::after {
+  content: "";
+  border-bottom: 2px solid #fd4f48;
+  position: absolute;
+  width: 28px;
+  top: calc(100% + 10px);
+  left: 0;
+}

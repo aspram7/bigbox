@@ -10,11 +10,16 @@ import classes from "./signUpForm.module.css";
 
 const validationSchema = Yup.object().shape({
   mail: Yup.string().email("Invalid email").required("Required"),
-  password: Yup.string().required("Required"),
+  password: Yup.string()
+    .required("Please Enter your password")
+    .matches(
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+      "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
+    ),
 });
 
 const SignUpForm = (props) => {
-  const [isSignup, setIsSignUp] = useState(true);
+  const [isSignUp, setIsSignUp] = useState(true);
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -32,7 +37,7 @@ const SignUpForm = (props) => {
 
   return (
     <div className={classes.section}>
-      {isSignup ? (
+      {isSignUp ? (
         <Modal show={props.show} handleClose={props.handleClose}>
           <span className={classes.close} onClick={props.handleClose}></span>
           <h4 className={classes.title}>Գրանցում</h4>

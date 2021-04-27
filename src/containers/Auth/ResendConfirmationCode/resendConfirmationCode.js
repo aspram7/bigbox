@@ -2,12 +2,10 @@ import React from "react";
 import { useFormik } from "formik";
 import { useSelector, useDispatch } from "react-redux";
 import { useMutation } from "@apollo/client";
-import { SIGN_UP_CONFIRM } from "../../../GraphQl/queries";
+import { RESEND_CONFIRMATION_CODE } from "../../../GraphQl/queries";
 import Modal from "../../../components/Modal";
 import Button from "../../../components/Button";
-import SignInForm from "../SignInForm";
-import { signUpConfirmCode } from "../../../store/auth/action";
-import classes from "./confirmedException.module.css";
+import classes from "./resendConfirmationCode.module.css";
 
 const ConfirmedException = (props) => {
   const state = useSelector((state) => state.signUpReducer);
@@ -19,14 +17,11 @@ const ConfirmedException = (props) => {
     onSubmit: async (values) => {
       try {
         // await dispatch(signUpConfirmCode(props.userName, values.code, state.signUp.userId));
-        await setSignUpConfirmCode({
+        await setResendConfirmationCode({
           variables: {
             username: props.userName,
-            confirmationCode: values.code,
-            userId: state.signUp.userId,
           },
         });
-        console.log(props.userName, values.code, state.signUp.userId);
       } catch (err) {
         console.log(err);
         throw err;
@@ -34,14 +29,14 @@ const ConfirmedException = (props) => {
     },
   });
 
-  const [setSignUpConfirmCode] = useMutation(SIGN_UP_CONFIRM);
+  const [setResendConfirmationCode] = useMutation(RESEND_CONFIRMATION_CODE);
 
   return (
     <div className={classes.section}>
       <Modal show={props.show} handleClose={props.handleClose}>
         <span className={classes.close} onClick={props.handleClose}></span>
         <h4 className={classes.title}>Մուտք</h4>
-        <p className={classes.resetPassword}>Դուք կստանաք գաղտնաբառը վերականգնելու նամակ։ </p>
+        <p className={classes.resetPassword}>Դուք կստանաք կոդը։ </p>
         <form onSubmit={formik.handleSubmit} className={classes.form} autoComplete="off">
           <div className={classes.formInputs}>
             <label htmlFor="mail">

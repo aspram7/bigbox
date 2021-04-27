@@ -5,6 +5,7 @@ import BestSeller from "../BestSeller";
 import Gift from "../Gift";
 import NewProducts from "../NewProducts";
 import Service from "../Service";
+import MyPage from "../MyPage";
 import Footer from "../../components/Footer";
 
 const Sections = () => {
@@ -16,6 +17,7 @@ const Sections = () => {
         <Gift />
         <NewProducts />
         <Service />
+        <MyPage />
       </Layout>
       <Footer />
     </div>
