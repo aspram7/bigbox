@@ -4,6 +4,7 @@ const initialState = {
   signUp: null,
   // signUpConfirm: false,
   // token: JSON.parse(localStorage.getItem("token")) || null,
+  signIn: null
 };
 
 const signUpReducer = (state = initialState, action) => {
@@ -22,7 +23,7 @@ const signUpReducer = (state = initialState, action) => {
       console.log(JSON.parse(localStorage.getItem("user")), 777);
       return {
         ...state,
-        token: action.payload.token,
+        signIn: action.payload.signIn,
       };
 
     default:

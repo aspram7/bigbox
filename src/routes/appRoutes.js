@@ -3,6 +3,7 @@ import Cart from "../containers/Cart";
 import Header from "../components/Header";
 import Sections from "../containers/Sections";
 import ProductItem from "../containers/ProductItem/productItem";
+import MyPage from "../containers/MyPage";
 
 const AppRoutes = () => {
   return (
@@ -12,6 +13,7 @@ const AppRoutes = () => {
         <Route exact path="/" component={Sections} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/product/:urlKey" component={ProductItem} />
+        <Route exact path="/profile" component={MyPage} />
       </Switch>
     </Router>
   );

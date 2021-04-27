@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import ResendConfirmationCode from "../ResendConfirmationCode";
 import Modal from "../../../components/Modal";
 import Button from "../../../components/Button";
@@ -15,6 +16,7 @@ const validationSchema = Yup.object().shape({
 
 const SignInForm = (props) => {
   const [isResendConfirmationCode, setResendConfirmationCode] = useState(false);
+  const history = useHistory();
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -25,6 +27,8 @@ const SignInForm = (props) => {
     onSubmit: async (values) => {
       try {
         await dispatch(signIn(values.mail, values.password));
+        await history.push("/profile");
+
       } catch (err) {
         console.log(err.message);
         if (err.message === "UserNotConfirmedException") {

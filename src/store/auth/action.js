@@ -50,7 +50,7 @@ export const signIn = (username, password) => {
       dispatch({
         type: "SET_USER",
         payload: {
-          token: signIn,
+          signIn,
         },
       });
     }

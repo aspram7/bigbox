@@ -9,7 +9,7 @@ const MyPage = () => {
   };
   return (
     <div className={classes.section}>
-      <h4>Զամբյուղ</h4>
+      <h4>Իմ Հաշիվը</h4>
       <div className={classes.menu}>
         <div
           className={contentPage === 0 ? classes.active : classes.menuItem}
